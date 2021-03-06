@@ -9,6 +9,11 @@ class CheckAuthentication extends NavigationEvent {
   List<Object> get props => [];
 }
 
+class GoToLogInScreen extends NavigationEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class LogInEvent extends NavigationEvent {
   LogInEvent({this.password, this.login});
 
@@ -17,4 +22,9 @@ class LogInEvent extends NavigationEvent {
 
   @override
   List<Object> get props => [login, password];
+}
+
+class GoToSignUpScreen extends NavigationEvent {
+  @override
+  List<Object> get props => [];
 }

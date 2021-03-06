@@ -9,7 +9,17 @@ class NavigationInitial extends NavigationState {
   List<Object> get props => [];
 }
 
+class NavigationLoading extends NavigationState {
+  @override
+  List<Object> get props => [];
+}
+
 class NavigationLogIn extends NavigationState {
+  @override
+  List<Object> get props => [];
+}
+
+class NavigationDashboard extends NavigationState {
   @override
   List<Object> get props => [];
 }

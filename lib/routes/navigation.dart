@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razjo/routes/bloc/navigation_bloc.dart';
+import 'package:razjo/routes/pages/dashboard/dashboard.dart';
 import 'package:razjo/routes/pages/log_in_page/log_in_page.dart';
 
 class Navigation extends StatelessWidget {
@@ -9,11 +10,15 @@ class Navigation extends StatelessWidget {
       builder: (context, state) {
         if (state is NavigationInitial) {
           context.read<NavigationBloc>().add(CheckAuthentication());
-          return Center(
-            child: Text("Loading..."),
-          );
+          return Container();
         }else if (state is NavigationLogIn){
           return LogInPage();
+        }else if (state is NavigationLoading){
+          return Center(
+            child: Text("loading..."),
+          );
+        }else if (state is NavigationDashboard){
+          return Dashbaord();
         }
       },
     );

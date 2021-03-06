@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:razjo/routes/bloc/navigation_bloc.dart';
 import 'package:razjo/widgets/form_input.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LogInPage extends StatelessWidget {
   String login;
   String password;
-
-  void submit (BuildContext context){
-    //TODO: add event to the stream
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,7 @@ class LogInPage extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
-              submit(context);
+              context.read<NavigationBloc>().add(LogInEvent(login: login, password: password));
             },
             child: Padding(
               padding: const EdgeInsets.only(top:8),

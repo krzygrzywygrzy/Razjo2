@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:razjo/models/user.dart';
+import 'package:razjo/services/authentication_service.dart';
 
 part 'navigation_event.dart';
 part 'navigation_state.dart';
@@ -21,7 +23,11 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
        yield NavigationLogIn();
     }
     if(event is LogInEvent){
-      //TODO: implement
+      yield NavigationLoading();
+      AuthenticationService auth = AuthenticationService();
+      Either response = await auth.userLogin(event.login, event.password);
+      if(response.isRight())
+        yield NavigationDashboard();
     }
   }
 }
