@@ -1,0 +1,32 @@
+part of 'dashboard_bloc.dart';
+
+abstract class DashboardState extends Equatable {
+  const DashboardState();
+}
+
+class DashboardHome extends DashboardState {
+  @override
+  List<Object> get props => [];
+}
+
+class DashboardNotes extends DashboardState {
+  @override
+  List<Object> get props => [];
+}
+
+class DashboardAppointments extends DashboardState {
+  @override
+  List<Object> get props => [];
+}
+
+class DashboardPatients extends DashboardState {
+  @override
+  List<Object> get props => [];
+}
+
+class DashboardSettings extends DashboardState {
+  @override
+  List<Object> get props => [];
+}
+
+

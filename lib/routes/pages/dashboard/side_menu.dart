@@ -14,6 +14,7 @@ class _SideMenuState extends State<SideMenu> {
 
   List<String> labels = [
     "Home",
+    "Notes",
     "Appointments",
     "Patients",
     "Settings",
@@ -21,6 +22,7 @@ class _SideMenuState extends State<SideMenu> {
 
   List<IconData> icons = [
     Icons.home,
+    Icons.note_rounded,
     Icons.add_alert,
     Icons.supervised_user_circle,
     Icons.settings,

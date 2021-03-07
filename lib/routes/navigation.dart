@@ -12,7 +12,6 @@ class Navigation extends StatelessWidget {
     return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
         if (state is NavigationInitial) {
-          print(MediaQuery.of(context).size.height);
           context.read<NavigationBloc>().add(CheckAuthentication());
           return Container();
         }else if (state is NavigationLogIn){
