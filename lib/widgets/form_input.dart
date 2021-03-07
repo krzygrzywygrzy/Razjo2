@@ -11,10 +11,12 @@ class FormInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double _screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.25,
+        width: _screenWidth > 420 ? 300 : _screenWidth-50,
         decoration: BoxDecoration(
           color: Color(0xffe0e0e0),
           borderRadius: BorderRadius.circular(5),

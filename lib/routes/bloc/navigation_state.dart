@@ -19,7 +19,15 @@ class NavigationLogIn extends NavigationState {
   List<Object> get props => [];
 }
 
-class NavigationDashboard extends NavigationState {
+class NavigationSignUp extends NavigationState {
   @override
   List<Object> get props => [];
+}
+
+class NavigationDashboard extends NavigationState {
+  NavigationDashboard({@required this.user});
+  final User user;
+
+  @override
+  List<Object> get props => [user];
 }

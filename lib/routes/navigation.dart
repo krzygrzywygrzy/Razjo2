@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razjo/routes/bloc/navigation_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/dashboard.dart';
 import 'package:razjo/routes/pages/log_in_page/log_in_page.dart';
+import 'package:razjo/routes/pages/sign_up_page/sign_up_page.dart';
 
 class Navigation extends StatelessWidget {
   BlocBuilder<NavigationBloc, NavigationState> buildApp(BuildContext context) {
@@ -19,6 +20,8 @@ class Navigation extends StatelessWidget {
           );
         }else if (state is NavigationDashboard){
           return Dashbaord();
+        }else if (state is NavigationSignUp){
+          return SignUpPage();
         }
       },
     );

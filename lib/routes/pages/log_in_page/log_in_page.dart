@@ -9,67 +9,75 @@ class LogInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(100),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Razjo",
-            style: TextStyle(fontSize: 30),
-          ),
-          FormInput(
-            hint: "login",
-            onChange: (value) {
-              login = value;
-            },
-          ),
-          FormInput(
-            hint: "password",
-            onChange: (value) {
-              password = value;
-            },
-          ),
-          GestureDetector(
-            onTap: (){
-              context.read<NavigationBloc>().add(LogInEvent(login: login, password: password));
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(top:8),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(45),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 24,
-                      ),
-                      child: Text(
-                        "log in",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: GestureDetector(
-                      onTap: (){
-                        print("go to sign up page");
-                      },
-                      child: Text("sign up"),
-                    ),
-                  ),
-                ],
-              ),
+    double _width = MediaQuery.of(context).size.width;
+
+    return Row(
+      children: [
+        SizedBox(
+          width: _width > 420 ? 100: 0,
+        ),
+        Column(
+          mainAxisAlignment:  MainAxisAlignment.center,
+          crossAxisAlignment: _width > 420? CrossAxisAlignment.start: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Razjo",
+              style: TextStyle(fontSize: 30),
             ),
-          )
-        ],
-      ),
+            FormInput(
+              hint: "login",
+              onChange: (value) {
+                login = value;
+              },
+            ),
+            FormInput(
+              hint: "password",
+              onChange: (value) {
+                password = value;
+              },
+            ),
+            GestureDetector(
+              onTap: () {
+                context
+                    .read<NavigationBloc>()
+                    .add(LogInEvent(login: login, password: password));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(45),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 24,
+                        ),
+                        child: Text(
+                          "log in",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<NavigationBloc>().add(GoToSignUpScreen());
+                        },
+                        child: Text("sign up"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }
