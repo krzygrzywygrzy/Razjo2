@@ -5,11 +5,15 @@ import 'package:razjo/routes/pages/dashboard/dashboard.dart';
 import 'package:razjo/routes/pages/log_in_page/log_in_page.dart';
 import 'package:razjo/routes/pages/sign_up_page/sign_up_page.dart';
 
+
+
 class Navigation extends StatelessWidget {
   BlocBuilder<NavigationBloc, NavigationState> buildApp(BuildContext context) {
     return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
+
         if (state is NavigationInitial) {
+          print(MediaQuery.of(context).size.height);
           context.read<NavigationBloc>().add(CheckAuthentication());
           return Container();
         }else if (state is NavigationLogIn){
@@ -19,7 +23,7 @@ class Navigation extends StatelessWidget {
             child: Text("loading..."),
           );
         }else if (state is NavigationDashboard){
-          return Dashbaord();
+          return Dashboard(user: state.user,);
         }else if (state is NavigationSignUp){
           return SignUpPage();
         }

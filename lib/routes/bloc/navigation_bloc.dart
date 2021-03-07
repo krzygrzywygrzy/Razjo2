@@ -33,14 +33,13 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       AuthenticationService auth = AuthenticationService();
       Either response = await auth.userLogin(event.login, event.password);
       if(response.isRight())
+        _user = response.getOrElse(() => _user);
         yield NavigationDashboard(user: _user);
     }
 
     //sign up page
     if(event is GoToSignUpScreen)
       yield NavigationSignUp();
-
-
 
   }
 }

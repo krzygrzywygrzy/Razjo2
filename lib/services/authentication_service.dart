@@ -18,7 +18,7 @@ class AuthenticationService {
       //   },
       // );
         return Right(
-          User(token: "123"),
+          User(token: "123", name: "Oli", surname: "Sykes", role: "USR"),
         );
     } on SocketException {
       return Left(ConnectionFailure());

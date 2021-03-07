@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+class AccountCard extends StatelessWidget {
+  const AccountCard({
+    Key key,
+    this.name,
+    this.surname,
+    this.role,
+  }) : super(key: key);
+
+  final String name;
+  final String surname;
+  final String role;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 60),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 60,
+                width: 60,
+                child: ClipOval(
+                  child: Image(
+                    image: AssetImage("assets/aph.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                '$name $surname',
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+              Text(
+                role == "PSY" ? 'psychologist' : "patient",
+                style: TextStyle(color: Colors.grey),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
