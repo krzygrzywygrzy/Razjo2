@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:razjo/widgets/menu_item.dart';
 
 class SideMenu extends StatefulWidget {
+  SideMenu({this.setLayout});
+  final Function setLayout;
+
   @override
   _SideMenuState createState() => _SideMenuState();
 }
@@ -36,6 +39,7 @@ class _SideMenuState extends State<SideMenu> {
             select: (){
               setState(() {
                 _selected = index;
+                widget.setLayout(index);
               });
             },
           );

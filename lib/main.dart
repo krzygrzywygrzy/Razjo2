@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razjo/routes/bloc/navigation_bloc.dart';
 import 'package:razjo/routes/navigation.dart';
+import 'package:window_size/window_size.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   if(Platform.isWindows || Platform.isLinux || Platform.isMacOS){
-    //TODO: set min size of window
+    setWindowTitle("");
+    setWindowMinSize(const Size(1035, 555));
   }
-
   runApp(MyApp());
 }
 

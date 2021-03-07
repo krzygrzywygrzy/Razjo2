@@ -13,6 +13,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+  int _layout = 0;
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
@@ -30,7 +33,13 @@ class _DashboardState extends State<Dashboard> {
                   surname: widget.user.surname,
                   role: widget.user.role,
                 ),
-                SideMenu(),
+                SideMenu(
+                  setLayout: (int index){
+                    setState(() {
+                      _layout= index;
+                    });
+                  },
+                ),
               ],
             ),
           ),
