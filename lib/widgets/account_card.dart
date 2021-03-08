@@ -14,6 +14,8 @@ class AccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 60),
       child: Row(
@@ -23,8 +25,8 @@ class AccountCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                height: 60,
-                width: 60,
+                height: _size.width < 1500 ? 60 : 80,
+                width: _size.width < 1500 ? 60 : 80,
                 child: ClipOval(
                   child: Image(
                     image: AssetImage("assets/aph.jpg"),
