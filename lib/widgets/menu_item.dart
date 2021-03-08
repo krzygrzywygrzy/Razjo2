@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:razjo/core/const.dart';
 
 class MenuItem extends StatelessWidget {
   MenuItem({@required this.isSelected, @required this.label, this.icon, this.select});
@@ -28,7 +29,7 @@ class MenuItem extends StatelessWidget {
             ),
             Icon(
               icon,
-              color: Colors.grey,
+              color: kLightGrayAccent,
               size: 18,
             ),
             SizedBox(
@@ -37,7 +38,7 @@ class MenuItem extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: isSelected? Colors.black : Colors.grey,
+                color: isSelected? kDark : kLightGrayAccent,
                 fontWeight: isSelected? FontWeight.bold : FontWeight.normal,
               ),
             ),

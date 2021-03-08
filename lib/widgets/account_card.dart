@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:razjo/core/const.dart';
 
 class AccountCard extends StatelessWidget {
   const AccountCard({
@@ -39,11 +40,14 @@ class AccountCard extends StatelessWidget {
               ),
               Text(
                 '$name $surname',
-                style: TextStyle(fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: kDark,
+                ),
               ),
               Text(
                 role == "PSY" ? 'psychologist' : "patient",
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: kLightGrayAccent),
               ),
               SizedBox(
                 height: 20,
