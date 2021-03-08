@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razjo/routes/bloc/navigation_bloc.dart';
 import 'package:razjo/routes/navigation.dart';
+import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:window_size/window_size.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  if(Platform.isWindows || Platform.isLinux || Platform.isMacOS){
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle("");
     setWindowMinSize(const Size(1035, 555));
   }
@@ -27,8 +28,15 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xffeb344f),
         fontFamily: 'Poppins',
       ),
-      home: BlocProvider<NavigationBloc>(
-        create: (context) => NavigationBloc(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<NavigationBloc>(
+            create: (context) => NavigationBloc(),
+          ),
+          BlocProvider<DashboardBloc>(
+            create: (context) => DashboardBloc(),
+          )
+        ],
         child: Navigation(),
       ),
     );
