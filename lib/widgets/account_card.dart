@@ -40,10 +40,7 @@ class AccountCard extends StatelessWidget {
               ),
               Text(
                 '$name $surname',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: kDark,
-                ),
+                style: kSubtitle ,
               ),
               Text(
                 role == "PSY" ? 'psychologist' : "patient",

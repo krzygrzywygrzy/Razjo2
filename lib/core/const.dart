@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 
 const String API_URL = "http://localhost:8080/";
 
+const SIZE = Size(1035, 555);
+
 const kLightGray = Color(0xffdddddd);
 const kLightGrayAccent = Color(0xffcecece);
 const kDark = Color(0xff353535);
+
+const kSubtitle = TextStyle(
+  color: kDark,
+  fontWeight: FontWeight.bold,
+);
 
 const kRightBorder = Border(
   right: BorderSide(

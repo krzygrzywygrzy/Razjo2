@@ -8,10 +8,12 @@ import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:window_size/window_size.dart';
 
 void main() {
+
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle("");
-    setWindowMinSize(const Size(1035, 555));
+    setWindowMinSize(SIZE);
+    setWindowMaxSize(SIZE);
   }
   runApp(MyApp());
 }

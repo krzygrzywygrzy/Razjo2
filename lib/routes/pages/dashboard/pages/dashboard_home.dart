@@ -1,13 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:razjo/core/const.dart';
 import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/models/appointment.dart';
+import 'package:razjo/models/note.dart';
 import 'package:razjo/services/appointment_service.dart';
+import 'package:razjo/services/note_service.dart';
 import 'package:razjo/widgets/appointment_card.dart';
+import 'package:razjo/widgets/note_card.dart';
 
 class DashboardHomePage extends StatelessWidget {
   AppointmentService _appointmentService = AppointmentService();
+  NoteService _noteService = NoteService();
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +43,8 @@ class DashboardHomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Text(
                           "Recent Appointments",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: kDark,
-                          ),
-                          textAlign: TextAlign.center,
+                          style: kSubtitle,
+                          textAlign: TextAlign.left,
                         ),
                       ),
                     ),
@@ -57,15 +60,18 @@ class DashboardHomePage extends StatelessWidget {
                       AsyncSnapshot<Either<Failure, List<Appointment>>>
                           snapshot) {
                     if (snapshot.hasData && snapshot.data.isRight()) {
-                      List<Appointment> _list = snapshot.data.getOrElse(() => []);
+                      List<Appointment> _list =
+                          snapshot.data.getOrElse(() => <Appointment>[]);
                       return Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, bottom: 10),
                           child: Container(
                             child: ListView.builder(
                               itemCount: _list.length,
                               itemBuilder: (context, index) {
-                                return AppointmentCard(appointment: _list[index]);
+                                return AppointmentCard(
+                                    appointment: _list[index]);
                               },
                             ),
                           ),
@@ -81,7 +87,73 @@ class DashboardHomePage extends StatelessWidget {
         ),
         Expanded(
           flex: 8,
-          child: Container(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ///
+                /// Title section + search bar
+                ///
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Notes",
+                        style: kSubtitle,
+                      ),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Icon(
+                          Icons.search,
+                          size: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                  height: 40,
+                  decoration: BoxDecoration(
+                    border: kBottomBorder,
+                  ),
+                ),
+
+                ///
+                ///  Notes section
+                ///
+                FutureBuilder(
+                  future: _noteService.getNotes(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<Either<Failure, List<Note>>> snapshot) {
+                    if (snapshot.hasData && snapshot.data.isRight()) {
+                      List<Note> _notes =
+                          snapshot.data.getOrElse(() => <Note>[]);
+                      return Expanded(
+                          child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: 10,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                          ),
+                          itemCount: _notes.length,
+                          itemBuilder: (context, index) {
+                            return NoteCard(
+                              note: _notes[index],
+                            );
+                          },
+                        ),
+                      ));
+                    } else
+                      return Text("loading...");
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );

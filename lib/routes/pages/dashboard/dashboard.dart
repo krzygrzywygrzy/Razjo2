@@ -32,7 +32,7 @@ class _DashboardState extends State<Dashboard> {
       child: Row(
         children: [
           Expanded(
-            flex: _size.width < 1200 ? 3 : 2,
+            flex: 3,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
