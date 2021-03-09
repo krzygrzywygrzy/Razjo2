@@ -15,16 +15,24 @@ class GoToLogInScreen extends NavigationEvent {
 }
 
 class LogInEvent extends NavigationEvent {
-  LogInEvent({this.password, this.login});
+  LogInEvent({this.password, this.email});
 
-  final String login;
+  final String email;
   final String password;
 
   @override
-  List<Object> get props => [login, password];
+  List<Object> get props => [email, password];
 }
 
 class GoToSignUpScreen extends NavigationEvent {
   @override
   List<Object> get props => [];
+}
+
+class SignUpEvent extends NavigationEvent {
+  SignUpEvent({this.user});
+  final Map<String, dynamic> user;
+
+  @override
+  List<Object> get props => [user];
 }

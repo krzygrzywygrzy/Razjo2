@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const String API_URL = "http://localhost:8080/";
+const String MONGO = "mongodb://localhost:27017/razjo";
 
 const SIZE = Size(1035, 555);
 

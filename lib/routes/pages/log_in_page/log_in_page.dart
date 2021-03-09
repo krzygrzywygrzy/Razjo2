@@ -4,8 +4,7 @@ import 'package:razjo/widgets/form_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LogInPage extends StatelessWidget {
-  String login;
-  String password;
+  String email, password;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +24,9 @@ class LogInPage extends StatelessWidget {
               style: TextStyle(fontSize: 30),
             ),
             FormInput(
-              hint: "login",
+              hint: "email",
               onChange: (value) {
-                login = value;
+                email = value;
               },
             ),
             FormInput(
@@ -40,7 +39,7 @@ class LogInPage extends StatelessWidget {
               onTap: () {
                 context
                     .read<NavigationBloc>()
-                    .add(LogInEvent(login: login, password: password));
+                    .add(LogInEvent(email: email, password: password));
               },
               child: Padding(
                 padding: const EdgeInsets.only(top: 8),

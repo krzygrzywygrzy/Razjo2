@@ -1,4 +1,5 @@
 abstract class Failure {}
 
 class ConnectionFailure implements Failure {}
-class BadRequestFailure implements Failure {}
+class EmailFailure implements Failure {}
+class SignUpFailure implements Failure {}

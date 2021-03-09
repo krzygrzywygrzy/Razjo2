@@ -18,28 +18,38 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
     NavigationEvent event,
   ) async* {
     // redirecting to log in screen or dashboard according to data existance
-    if(event is CheckAuthentication){
+    if (event is CheckAuthentication) {
       //TODO: check for data in shared preferences
-     if(_user.token == null)
-       yield NavigationLogIn();
-     else yield NavigationDashboard(user: _user);
+      if (_user.id == null)
+        yield NavigationLogIn();
+      else
+        yield NavigationDashboard(user: _user);
     }
     //log in screen
-    if(event is GoToLogInScreen)
+    if (event is GoToLogInScreen)
       yield NavigationLogIn();
 
-    if(event is LogInEvent){
+
+    if (event is LogInEvent) {
       yield NavigationLoading();
       AuthenticationService auth = AuthenticationService();
-      Either response = await auth.userLogin(event.login, event.password);
-      if(response.isRight())
+      Either response = await auth.userLogin(event.email, event.password);
+      if (response.isRight()) {
         _user = response.getOrElse(() => _user);
         yield NavigationDashboard(user: _user);
+      } else {
+        print("Error!!!");
+      }
     }
 
     //sign up page
-    if(event is GoToSignUpScreen)
+    if (event is GoToSignUpScreen)
       yield NavigationSignUp();
+
+    if (event is SignUpEvent){
+      AuthenticationService auth = AuthenticationService();
+      Either response = await auth.userSignUp(event.user);
+    }
 
   }
 }

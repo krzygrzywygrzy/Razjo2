@@ -4,7 +4,6 @@ import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/models/note.dart';
 
 class NoteService {
-  //TODO: implement http request when api is implemented
   Future<Either<Failure, List<Note>>> getNotes() async {
     List<Note> _fakeNotes = List.generate(
       4,
@@ -18,7 +17,6 @@ class NoteService {
         time: TimeOfDay(hour: 12, minute: 0),
       ),
     );
-
     return Right(_fakeNotes);
   }
 }
