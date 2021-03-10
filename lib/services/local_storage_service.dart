@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:razjo/core/erros/exceptions.dart';
 import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const LOCAL_DATA_STRING = "LOCAL_USER";
@@ -14,14 +13,14 @@ class LocalStorageService {
 
   SharedPreferences _sharedPreferences;
 
-  Future<Either<Failure, User>> getLocalData() async {
+  Future<Either<Failure, Map<String, dynamic>>> getLocalData() async {
     try {
       _sharedPreferences = await SharedPreferences.getInstance();
       var json =
-          jsonDecode(await _sharedPreferences.getString(LOCAL_DATA_STRING));
-      if (json != null) {
-        return Right(User.fromJson(json));
-      } else
+          jsonDecode(_sharedPreferences.getString(LOCAL_DATA_STRING));
+      if (json != null)
+        return Right(json);
+      else
         throw LocalDataSourceException();
     } on LocalDataSourceException {
       return Left(LocalDataSourceFailure());
@@ -30,9 +29,9 @@ class LocalStorageService {
     }
   }
 
-  Future<void> saveToLocal(User save) async {
+  Future<void> saveToLocal(Map<String, dynamic> dataToSave) async {
     _sharedPreferences = await SharedPreferences.getInstance();
     await _sharedPreferences.setString(
-        LOCAL_DATA_STRING, jsonEncode(save.toJson()));
+        LOCAL_DATA_STRING, jsonEncode(dataToSave));
   }
 }
