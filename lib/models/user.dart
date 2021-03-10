@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
 class User extends Equatable {
   User({this.name, this.surname, this.email, this.id, this.role});
@@ -6,7 +7,7 @@ class User extends Equatable {
   final String name;
   final String surname;
   final String email;
-  final String id;
+  final ObjectId id;
   final String role;
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -14,7 +15,7 @@ class User extends Equatable {
       name: json['name'],
       surname: json['surname'],
       email: json['email'],
-      id: json['id'],
+      id: json['_id'],
       role: json['role'],
     );
   }
@@ -25,7 +26,7 @@ class User extends Equatable {
       "surname": surname,
       "email": email,
       "role": role,
-      "id": id,
+      "_id": id,
     };
   }
 

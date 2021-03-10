@@ -8,15 +8,27 @@ import 'package:razjo/models/user.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 class AuthenticationService {
+  ///Manages login and registration
+  ///
+  /// Throws [EmailException] when email is in the database
+  /// Throws [SignUpException] when there is problem while adding user to database
+  /// Catches [Exception] when unable to connect to the database
+
   Db db = Db(MONGO);
 
   Future<Either<Failure, User>> userLogin(email, password) async {
     try {
       await db.open();
-      return Right(
-        User(id: "123", name: "Oli", surname: "Sykes", role: "USR"),
-      );
-    } on SocketException {
+      DbCollection collection = db.collection("users");
+
+      var data = await collection.findOne({
+        "email": email,
+        "password": password,
+      });
+      if (data != null) {
+        return Right(User.fromJson(data));
+      } else throw LogInException();
+    } catch (_) {
       return Left(ConnectionFailure());
     }
   }
@@ -30,15 +42,17 @@ class AuthenticationService {
       if (emailCheck != null) throw EmailException();
 
       var res = await collection.insert(user);
-      if(res["err"] == null) {
-        //TODO: get instance from db and return User
+      if (res["err"] == null) {
+        return this.userLogin(user["email"], user["password"]);
+      } else {
+        throw SignUpException();
       }
-
-    }  on EmailException {
+    } on EmailException {
       return Left(EmailFailure());
-    } catch (_){
+    } on SignUpException {
+      return Left(SignUpFailure());
+    } catch (_) {
       return Left(ConnectionFailure());
     }
   }
-
 }

@@ -26,9 +26,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         yield NavigationDashboard(user: _user);
     }
     //log in screen
-    if (event is GoToLogInScreen)
-      yield NavigationLogIn();
-
+    if (event is GoToLogInScreen) yield NavigationLogIn();
 
     if (event is LogInEvent) {
       yield NavigationLoading();
@@ -38,18 +36,23 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         _user = response.getOrElse(() => _user);
         yield NavigationDashboard(user: _user);
       } else {
-        print("Error!!!");
+        //TODO: implement error handling
       }
     }
 
     //sign up page
-    if (event is GoToSignUpScreen)
-      yield NavigationSignUp();
+    if (event is GoToSignUpScreen) yield NavigationSignUp();
 
-    if (event is SignUpEvent){
+    if (event is SignUpEvent) {
+      yield NavigationLoading();
       AuthenticationService auth = AuthenticationService();
       Either response = await auth.userSignUp(event.user);
+      if (response.isRight()) {
+        _user = response.getOrElse(() => _user);
+        yield NavigationDashboard(user: _user);
+      } else {
+        //TODO: implement error handling
+      }
     }
-
   }
 }
