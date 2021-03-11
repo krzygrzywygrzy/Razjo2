@@ -4,6 +4,7 @@ import 'package:razjo/core/const.dart';
 import 'package:razjo/models/user.dart';
 import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/pages/dashboard_home.dart';
+import 'package:razjo/routes/pages/dashboard/pages/dashboard_notes.dart';
 import 'package:razjo/routes/pages/dashboard/side_menu.dart';
 import 'package:razjo/widgets/account_card.dart';
 
@@ -81,9 +82,7 @@ class _DashboardState extends State<Dashboard> {
                 if (state is DashboardHome)
                   return DashboardHomePage();
                 else if (state is DashboardNotes)
-                  return Center(
-                    child: Text("Notes"),
-                  );
+                  return DashboardNotesPage();
                 else if (state is DashboardAppointments)
                   return Center(
                     child: Text("Appointments"),

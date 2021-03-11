@@ -10,13 +10,20 @@ class DashboardInital extends DashboardState {
 }
 
 class DashboardHome extends DashboardState {
+  DashboardHome({ @required ObjectId id}): _id = id;
+  final ObjectId _id;
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [_id];
+
 }
 
 class DashboardNotes extends DashboardState {
+  DashboardNotes({ @required ObjectId id}): _id = id;
+  final ObjectId _id;
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [_id];
 }
 
 class DashboardAppointments extends DashboardState {

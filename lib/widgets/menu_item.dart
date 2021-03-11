@@ -3,37 +3,42 @@ import 'package:flutter/rendering.dart';
 import 'package:razjo/core/const.dart';
 
 class MenuItem extends StatelessWidget {
-  MenuItem(
-      {@required this.isSelected,
-      @required this.label,
-      this.icon,
-      this.select});
+  MenuItem({
+    @required bool isSelected,
+    @required String label,
+    IconData icon,
+    Function select,
+  })  : _isSelected = isSelected,
+        _label = label,
+        _icon = icon,
+        _select = select;
 
-  final bool isSelected;
-  final String label;
-  final IconData icon;
-  final Function select;
+  final bool _isSelected;
+  final String _label;
+  final IconData _icon;
+  final Function _select;
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: select,
+        onTap: _select,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               width: 4,
               height: 30,
-              color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+              color:
+                  _isSelected ? Theme.of(context).primaryColor : Colors.white,
             ),
             SizedBox(
               width: 20,
             ),
             Icon(
-              icon,
-              color: isSelected
+              _icon,
+              color: _isSelected
                   ? Theme.of(context).primaryColor
                   : kLightGrayAccent,
               size: 18,
@@ -42,10 +47,10 @@ class MenuItem extends StatelessWidget {
               width: 20,
             ),
             Text(
-              label,
+              _label,
               style: TextStyle(
-                color: isSelected ? kDark : kLightGrayAccent,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                color: _isSelected ? kDark : kLightGrayAccent,
+                fontWeight: _isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
           ],

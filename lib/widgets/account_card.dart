@@ -4,14 +4,17 @@ import 'package:razjo/core/const.dart';
 class AccountCard extends StatelessWidget {
   const AccountCard({
     Key key,
-    this.name,
-    this.surname,
-    this.role,
-  }) : super(key: key);
+    @required String name,
+    @required String surname,
+    @required String role,
+  })  : _name = name,
+        _surname = surname,
+        _role = role,
+        super(key: key);
 
-  final String name;
-  final String surname;
-  final String role;
+  final String _name;
+  final String _surname;
+  final String _role;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +42,11 @@ class AccountCard extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                '$name $surname',
-                style: kSubtitle ,
+                '$_name $_surname',
+                style: kSubtitle,
               ),
               Text(
-                role == "PSY" ? 'psychologist' : "patient",
+                _role == "PSY" ? 'psychologist' : "patient",
                 style: TextStyle(color: kLightGrayAccent),
               ),
               SizedBox(

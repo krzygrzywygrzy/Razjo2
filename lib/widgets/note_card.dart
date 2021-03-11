@@ -6,12 +6,12 @@ import 'package:razjo/core/functions/time_format.dart';
 import 'package:razjo/models/note.dart';
 
 class NoteCard extends StatelessWidget {
-  NoteCard({@required this.note});
-  final Note note;
+  NoteCard({@required Note note}) : _note = note;
+  final Note _note;
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat("dd/MM/yyy").format(note.date);
+    String formattedDate = DateFormat("dd/MM/yyy").format(_note.date);
 
     return Container(
       decoration: BoxDecoration(
@@ -21,7 +21,7 @@ class NoteCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "${note.name}",
+            "${_note.name}",
             style: kSubtitle,
             overflow: TextOverflow.ellipsis,
           ),
@@ -29,7 +29,7 @@ class NoteCard extends StatelessWidget {
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Text(
-                note.patientEntry,
+                _note.patientEntry,
                 style: TextStyle(
                   fontSize: 12,
                 ),
@@ -39,7 +39,7 @@ class NoteCard extends StatelessWidget {
             ),
           ),
           Text(
-            "$formattedDate ${formatTime(note.time.hour)}:${formatTime(note.time.minute)}",
+            "$formattedDate ${formatTime(_note.time.hour)}:${formatTime(_note.time.minute)}",
             style: TextStyle(
               fontSize: 12,
               color: kLightGrayAccent,

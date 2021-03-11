@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/models/note.dart';
 
 class NoteService {
-  Future<Either<Failure, List<Note>>> getNotes() async {
+  Future<Either<Failure, List<Note>>> getNotes(ObjectId objectId) async {
     List<Note> _fakeNotes = List.generate(
-      4,
+      8,
       (index) => Note(
         id: index.toString(),
         patientEntry:

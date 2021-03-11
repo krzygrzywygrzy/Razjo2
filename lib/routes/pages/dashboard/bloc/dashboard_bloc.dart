@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:razjo/models/user.dart';
 
 part 'dashboard_event.dart';
@@ -18,12 +19,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async* {
     if(event is LoadData){
       _user = event.user;
-      yield DashboardHome();
+      yield DashboardHome(id: _user.id);
     }
     if(event is GoToHome)
-      yield DashboardHome();
+      yield DashboardHome(id: _user.id);
     if(event is GoToNotes)
-      yield DashboardNotes();
+      yield DashboardNotes(id: _user.id);
     if(event is GoToAppointments)
       yield DashboardAppointments();
     if(event is GoToPatients)

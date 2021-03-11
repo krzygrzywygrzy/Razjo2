@@ -6,12 +6,13 @@ import 'package:razjo/core/functions/time_format.dart';
 import 'package:razjo/models/appointment.dart';
 
 class AppointmentCard extends StatelessWidget {
-  AppointmentCard({@required this.appointment});
-  final Appointment appointment;
+  AppointmentCard({@required Appointment appointment})
+      : _appointment = appointment;
+  final Appointment _appointment;
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat("dd/MM/yyy").format(appointment.date);
+    String formattedDate = DateFormat("dd/MM/yyy").format(_appointment.date);
 
     return Container(
       padding: EdgeInsets.only(top: 10),
@@ -22,7 +23,7 @@ class AppointmentCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${appointment.name} ${appointment.surname}",
+              "${_appointment.name} ${_appointment.surname}",
               style: TextStyle(
                 color: kDark,
                 fontWeight: FontWeight.w700,
@@ -47,7 +48,7 @@ class AppointmentCard extends StatelessWidget {
                   size: 14,
                 ),
                 Text(
-                  " ${formatTime(appointment.time.hour)}:${formatTime(appointment.time.minute)}",
+                  " ${formatTime(_appointment.time.hour)}:${formatTime(_appointment.time.minute)}",
                   style: TextStyle(
                     color: kLightGrayAccent,
                     fontSize: 12,
