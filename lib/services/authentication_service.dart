@@ -44,6 +44,7 @@ class AuthenticationService {
       var emailCheck = await collection.findOne({"email": user["email"]});
       if (emailCheck != null) throw EmailException();
 
+      user["contacts"] = [];
       var res = await collection.insert(user);
       if (res["err"] == null) {
         return this.userLogin(user["email"], user["password"]);

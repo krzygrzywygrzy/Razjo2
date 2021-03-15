@@ -54,5 +54,10 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         //TODO: implement error handling
       }
     }
+
+    if(event is LogOutEvent){
+      _user = User();
+      yield NavigationLogIn();
+    }
   }
 }

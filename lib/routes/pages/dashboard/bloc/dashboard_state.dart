@@ -4,26 +4,20 @@ abstract class DashboardState extends Equatable {
   const DashboardState();
 }
 
-class DashboardInital extends DashboardState {
+class DashboardInitial extends DashboardState {
   @override
   List<Object> get props => [];
 }
 
 class DashboardHome extends DashboardState {
-  DashboardHome({ @required ObjectId id}): _id = id;
-  final ObjectId _id;
-
   @override
-  List<Object> get props => [_id];
+  List<Object> get props => [];
 
 }
 
 class DashboardNotes extends DashboardState {
-  DashboardNotes({ @required ObjectId id}): _id = id;
-  final ObjectId _id;
-
   @override
-  List<Object> get props => [_id];
+  List<Object> get props => [];
 }
 
 class DashboardAppointments extends DashboardState {
@@ -32,6 +26,8 @@ class DashboardAppointments extends DashboardState {
 }
 
 class DashboardPatients extends DashboardState {
+
+
   @override
   List<Object> get props => [];
 }

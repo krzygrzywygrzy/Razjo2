@@ -10,7 +10,7 @@ part 'dashboard_event.dart';
 part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
-  DashboardBloc() : super(DashboardInital());
+  DashboardBloc() : super(DashboardInitial());
   User _user = User();
   
   @override
@@ -19,12 +19,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async* {
     if(event is LoadData){
       _user = event.user;
-      yield DashboardHome(id: _user.id);
+      yield DashboardHome();
     }
     if(event is GoToHome)
-      yield DashboardHome(id: _user.id);
+      yield DashboardHome();
     if(event is GoToNotes)
-      yield DashboardNotes(id: _user.id);
+      yield DashboardNotes();
     if(event is GoToAppointments)
       yield DashboardAppointments();
     if(event is GoToPatients)

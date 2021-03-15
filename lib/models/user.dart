@@ -1,14 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:razjo/models/contact.dart';
 
 class User extends Equatable {
-  User({this.name, this.surname, this.email, this.id, this.role});
+  User({this.name, this.surname, this.email, this.id, this.role, this.contacts});
 
   final String name;
   final String surname;
   final String email;
   final ObjectId id;
   final String role;
+  final List<Contact> contacts;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -31,5 +33,5 @@ class User extends Equatable {
   }
 
   @override
-  List<Object> get props => [name, surname, email, id, role];
+  List<Object> get props => [name, surname, email, id, role, contacts];
 }

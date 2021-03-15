@@ -5,6 +5,10 @@ import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/models/note.dart';
 
 class NoteService {
+  /// Manages to get all notes signed to person
+  ///
+  ///
+
   Future<Either<Failure, List<Note>>> getNotes(ObjectId objectId) async {
     List<Note> _fakeNotes = List.generate(
       8,

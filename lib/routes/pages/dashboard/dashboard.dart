@@ -5,6 +5,8 @@ import 'package:razjo/models/user.dart';
 import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/pages/dashboard_home.dart';
 import 'package:razjo/routes/pages/dashboard/pages/dashboard_notes.dart';
+import 'package:razjo/routes/pages/dashboard/pages/dashboard_patients.dart';
+import 'package:razjo/routes/pages/dashboard/pages/dashboard_settings.dart';
 import 'package:razjo/routes/pages/dashboard/side_menu.dart';
 import 'package:razjo/widgets/account_card.dart';
 
@@ -46,6 +48,7 @@ class _DashboardState extends State<Dashboard> {
                     name: widget.user.name,
                     surname: widget.user.surname,
                     role: widget.user.role,
+                    showLogOut: true,
                   ),
                   SideMenu(
                     type: widget.user.role,
@@ -80,21 +83,17 @@ class _DashboardState extends State<Dashboard> {
               child: BlocBuilder<DashboardBloc, DashboardState>(
                   builder: (context, state) {
                 if (state is DashboardHome)
-                  return DashboardHomePage();
+                  return DashboardHomePage(id: widget.user.id,);
                 else if (state is DashboardNotes)
-                  return DashboardNotesPage();
+                  return DashboardNotesPage(id: widget.user.id,);
                 else if (state is DashboardAppointments)
                   return Center(
                     child: Text("Appointments"),
                   );
                 else if (state is DashboardPatients)
-                  return Center(
-                    child: Text("Patients"),
-                  );
+                  return DashboardPatientsPage(id: widget.user.id);
                 else if (state is DashboardSettings)
-                  return Center(
-                    child: Text("Settings"),
-                  );
+                  return DashboardSettingsPage();
                 else {
                   context.read<DashboardBloc>().add(
                         LoadData(user: widget.user),

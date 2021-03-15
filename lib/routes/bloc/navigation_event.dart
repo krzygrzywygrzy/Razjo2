@@ -36,3 +36,8 @@ class SignUpEvent extends NavigationEvent {
   @override
   List<Object> get props => [user];
 }
+
+class LogOutEvent extends NavigationEvent {
+  @override
+  List<Object> get props => [];
+}

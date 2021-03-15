@@ -12,8 +12,8 @@ import 'package:razjo/widgets/appointment_card.dart';
 
 
 class DashboardHomePage extends StatelessWidget {
-  DashboardHomePage({@required ObjectId objectId}): _objectId = objectId;
-  final ObjectId _objectId;
+  DashboardHomePage({@required ObjectId id}): _id = id;
+  final ObjectId _id;
 
   AppointmentService _appointmentService = AppointmentService();
   NoteService _noteService = NoteService();
@@ -92,7 +92,7 @@ class DashboardHomePage extends StatelessWidget {
           flex: 8,
           child: NoteGird(
             noteService: _noteService,
-            objectId: _objectId,
+            objectId: _id,
           ),
         ),
       ],

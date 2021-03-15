@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mongo_dart/mongo_dart.dart';
+import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:razjo/core/const.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/note_grid.dart';
 import 'package:razjo/services/note_service.dart';
 
-class DashboardNotesPage extends StatelessWidget {
-  DashboardNotesPage({@required ObjectId objectId}) : _objectId = objectId;
-  final ObjectId _objectId;
+class DashboardNotesPage extends StatefulWidget {
+  DashboardNotesPage({@required mongo.ObjectId id}) : _id = id;
+  final mongo.ObjectId _id;
+
+  @override
+  _DashboardNotesPageState createState() => _DashboardNotesPageState();
+}
+
+class _DashboardNotesPageState extends State<DashboardNotesPage> {
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +29,36 @@ class DashboardNotesPage extends StatelessWidget {
               decoration: BoxDecoration(border: kRightBorder),
               child: NoteGird(
                 noteService: _noteService,
-                objectId: _objectId,
+                objectId: widget._id,
               ),
             ),
           ),
           Expanded(
-            child: Container(),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Container(
+                    decoration: BoxDecoration(border: kBottomBorder),
+                    height: 40,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Edit note",
+                          style: kSubtitle,
+                        ),
+                        Text(
+                          "Save",
+                          style: kSubtitle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

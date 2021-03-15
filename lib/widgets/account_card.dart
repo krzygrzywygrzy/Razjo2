@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:razjo/core/const.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:razjo/routes/bloc/navigation_bloc.dart';
+import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 
 class AccountCard extends StatelessWidget {
   const AccountCard({
@@ -7,53 +11,82 @@ class AccountCard extends StatelessWidget {
     @required String name,
     @required String surname,
     @required String role,
+    bool showLogOut,
   })  : _name = name,
         _surname = surname,
         _role = role,
+        _showLogOut = showLogOut,
         super(key: key);
 
   final String _name;
   final String _surname;
   final String _role;
+  final bool _showLogOut;
+
+  Widget logOut(context) {
+    if (_showLogOut == null || _showLogOut == false)
+      return Container();
+    else
+      return Positioned(
+        right: 40,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              context.read<DashboardBloc>().add(GoToHome());
+              context.read<NavigationBloc>().add(LogOutEvent());
+            },
+            child: Icon(
+              Icons.logout,
+              size: 18,
+              color: kLightGrayAccent,
+            ),
+          ),
+        ),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 60),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: _size.width < 1500 ? 60 : 80,
-                width: _size.width < 1500 ? 60 : 80,
-                child: ClipOval(
-                  child: Image(
-                    image: AssetImage("assets/aph.jpg"),
-                    fit: BoxFit.cover,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    child: ClipOval(
+                      child: Image(
+                        image: AssetImage("assets/aph.jpg"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                '$_name $_surname',
-                style: kSubtitle,
-              ),
-              Text(
-                _role == "PSY" ? 'psychologist' : "patient",
-                style: TextStyle(color: kLightGrayAccent),
-              ),
-              SizedBox(
-                height: 20,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '$_name $_surname',
+                    style: kSubtitle,
+                  ),
+                  Text(
+                    _role == "PSY" ? 'psychologist' : "patient",
+                    style: TextStyle(color: kLightGrayAccent),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
               ),
             ],
           ),
+          logOut(context),
         ],
       ),
     );
