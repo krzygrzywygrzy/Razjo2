@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:razjo/core/erros/exceptions.dart';
-import 'package:razjo/core/erros/failures.dart';
+import '../core/erros/exceptions.dart';
+import '../core/erros/failures.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const LOCAL_DATA_STRING = "LOCAL_USER";
@@ -16,8 +16,7 @@ class LocalStorageService {
   Future<Either<Failure, Map<String, dynamic>>> getLocalData() async {
     try {
       _sharedPreferences = await SharedPreferences.getInstance();
-      var json =
-          jsonDecode(_sharedPreferences.getString(LOCAL_DATA_STRING));
+      var json = jsonDecode(_sharedPreferences.getString(LOCAL_DATA_STRING));
       if (json != null)
         return Right(json);
       else

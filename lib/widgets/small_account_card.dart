@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:razjo/core/const.dart';
+import '../core/const.dart';
 
 class SmallAccountCard extends StatelessWidget {
   SmallAccountCard({

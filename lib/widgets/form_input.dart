@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:razjo/core/const.dart';
+import '../core/const.dart';
 
 class FormInput extends StatelessWidget {
   const FormInput({

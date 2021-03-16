@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/note.dart';
+import '../core/erros/failures.dart';
+import '../models/note.dart';
 
 class NoteService {
   /// Manages to get all notes signed to person

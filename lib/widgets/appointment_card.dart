@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/functions/time_format.dart';
-import 'package:razjo/models/appointment.dart';
+import '../core/const.dart';
+import '../core/functions/time_format.dart';
+import '../models/appointment.dart';
 
 class AppointmentCard extends StatelessWidget {
   AppointmentCard({@required Appointment appointment})

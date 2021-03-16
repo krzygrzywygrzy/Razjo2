@@ -2,12 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/note.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
-import 'package:razjo/services/note_service.dart';
-import 'package:razjo/widgets/note_card.dart';
+import '../../../../core/const.dart';
+import '../../../../core/erros/failures.dart';
+import '../../../../models/note.dart';
+import '../bloc/dashboard_bloc.dart';
+import '../../../../services/note_service.dart';
+import '../../../../widgets/note_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NoteGird extends StatelessWidget {

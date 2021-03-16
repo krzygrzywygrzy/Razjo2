@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/models/contact.dart';
+import 'contact.dart';
 
 class User extends Equatable {
-  User({this.name, this.surname, this.email, this.id, this.role, this.contacts});
+  User(
+      {this.name, this.surname, this.email, this.id, this.role, this.contacts});
 
   final String name;
   final String surname;

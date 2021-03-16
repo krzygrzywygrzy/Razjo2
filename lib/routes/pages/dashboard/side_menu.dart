@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:razjo/widgets/menu_item.dart';
+import '../../../widgets/menu_item.dart';
 
 class SideMenu extends StatefulWidget {
   SideMenu({@required this.setLayout, this.type});
@@ -37,9 +37,11 @@ class _SideMenuState extends State<SideMenu> {
         itemBuilder: (context, index) {
           return MenuItem(
             isSelected: _selected == index ? true : false,
-            label: index == 3 && widget.type != "PSY" ? "Psychologists" :labels[index],
+            label: index == 3 && widget.type != "PSY"
+                ? "Psychologists"
+                : labels[index],
             icon: icons[index],
-            select: (){
+            select: () {
               setState(() {
                 _selected = index;
                 widget.setLayout(index);

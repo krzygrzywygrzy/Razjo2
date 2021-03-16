@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
-import 'package:razjo/core/const.dart';
-import 'package:razjo/routes/pages/dashboard/widgets/note_grid.dart';
-import 'package:razjo/services/note_service.dart';
+import '../../../../core/const.dart';
+import '../widgets/note_grid.dart';
+import '../../../../services/note_service.dart';
 
 class DashboardNotesPage extends StatefulWidget {
   DashboardNotesPage({@required mongo.ObjectId id}) : _id = id;
@@ -14,9 +14,6 @@ class DashboardNotesPage extends StatefulWidget {
 }
 
 class _DashboardNotesPageState extends State<DashboardNotesPage> {
-
-
-
   @override
   Widget build(BuildContext context) {
     NoteService _noteService = NoteService();

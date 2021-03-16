@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:razjo/core/const.dart';
+
+import '../../../../core/const.dart';
 
 class SectionTopBar extends StatelessWidget {
   const SectionTopBar({

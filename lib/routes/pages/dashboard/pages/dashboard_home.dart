@@ -2,17 +2,16 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/appointment.dart';
-import 'package:razjo/routes/pages/dashboard/widgets/note_grid.dart';
-import 'package:razjo/services/appointment_service.dart';
-import 'package:razjo/services/note_service.dart';
-import 'package:razjo/widgets/appointment_card.dart';
-
+import '../../../../core/const.dart';
+import '../../../../core/erros/failures.dart';
+import '../../../../models/appointment.dart';
+import '../widgets/note_grid.dart';
+import '../../../../services/appointment_service.dart';
+import '../../../../services/note_service.dart';
+import '../../../../widgets/appointment_card.dart';
 
 class DashboardHomePage extends StatelessWidget {
-  DashboardHomePage({@required ObjectId id}): _id = id;
+  DashboardHomePage({@required ObjectId id}) : _id = id;
   final ObjectId _id;
 
   AppointmentService _appointmentService = AppointmentService();

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:razjo/core/const.dart';
+import '../core/const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:razjo/routes/bloc/navigation_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
+import '../routes/bloc/navigation_bloc.dart';
+import '../routes/pages/dashboard/bloc/dashboard_bloc.dart';
 
 class AccountCard extends StatelessWidget {
   const AccountCard({

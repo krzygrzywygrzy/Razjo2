@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:razjo/routes/bloc/navigation_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/dashboard.dart';
-import 'package:razjo/routes/pages/log_in_page/log_in_page.dart';
-import 'package:razjo/routes/pages/sign_up_page/sign_up_page.dart';
-
-
+import 'bloc/navigation_bloc.dart';
+import 'pages/dashboard/dashboard.dart';
+import 'pages/log_in_page/log_in_page.dart';
+import 'pages/sign_up_page/sign_up_page.dart';
 
 class Navigation extends StatelessWidget {
   BlocBuilder<NavigationBloc, NavigationState> buildApp(BuildContext context) {
@@ -14,15 +12,17 @@ class Navigation extends StatelessWidget {
         if (state is NavigationInitial) {
           context.read<NavigationBloc>().add(CheckAuthentication());
           return Container();
-        }else if (state is NavigationLogIn){
+        } else if (state is NavigationLogIn) {
           return LogInPage();
-        }else if (state is NavigationLoading){
+        } else if (state is NavigationLoading) {
           return Center(
             child: Text("loading..."),
           );
-        }else if (state is NavigationDashboard){
-          return Dashboard(user: state.user,);
-        }else if (state is NavigationSignUp){
+        } else if (state is NavigationDashboard) {
+          return Dashboard(
+            user: state.user,
+          );
+        } else if (state is NavigationSignUp) {
           return SignUpPage();
         }
       },

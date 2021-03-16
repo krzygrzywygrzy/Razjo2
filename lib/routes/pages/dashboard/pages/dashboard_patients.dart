@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
-import 'package:razjo/core/const.dart';
-import 'package:razjo/models/user.dart';
-import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
-import 'package:razjo/services/search_service.dart';
-import 'package:razjo/widgets/account_card.dart';
-import 'package:razjo/widgets/small_account_card.dart';
+import '../../../../core/const.dart';
+import '../../../../models/user.dart';
+import '../widgets/section_top_bar.dart';
+import '../../../../services/search_service.dart';
+import '../../../../widgets/account_card.dart';
+import '../../../../widgets/icon_round_button.dart';
+import '../../../../widgets/outline_button.dart';
+import '../../../../widgets/small_account_card.dart';
 
-// ignore: must_be_immutable
 class DashboardPatientsPage extends StatefulWidget {
   DashboardPatientsPage({@required mongo.ObjectId id}) : _id = id;
-  mongo.ObjectId _id;
+  final mongo.ObjectId _id;
 
   @override
   _DashboardPatientsPageState createState() => _DashboardPatientsPageState();
@@ -20,34 +22,59 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   SearchService _searchService = SearchService();
   int _state = 0;
   User _selectedUser;
+  var _phraseController = TextEditingController();
 
   Widget buildRightSection() {
     switch (_state) {
-      case 0:
-        return Expanded(
-          child: Center(
-            child: Text("Choose patient to display information about him/her"),
-          ),
-        );
-        break;
       case 1:
         return buildSearch();
         break;
       case 2:
         return buildUserDisplay();
         break;
+      default:
+        return Expanded(
+          child: Center(
+            child: Text("Choose patient to display information about him/her"),
+          ),
+        );
+        break;
     }
   }
 
   Widget buildUserDisplay() {
-    return Stack(
-      children: [
-        AccountCard(
-          name: _selectedUser.name,
-          surname: _selectedUser.surname,
-          role: _selectedUser.role,
-        ),
-      ],
+    return Expanded(
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              AccountCard(
+                name: _selectedUser.name,
+                surname: _selectedUser.surname,
+                role: _selectedUser.role,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyOutlineButton(label: "Add Patient"),
+                ],
+              ),
+            ],
+          ),
+          // Message box
+          Positioned(
+            right: 8,
+            bottom: 8,
+            child: Row(
+              children: [
+                IconRoundButton(icon: Icons.video_call),
+                SizedBox(width: 8),
+                IconRoundButton(icon: Icons.message),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -75,6 +102,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                       email: snapshot.data[index].email,
                       select: () {
                         _selectedUser = snapshot.data[index];
+                        _phraseController.clear();
                         setState(() {
                           _state = 2;
                         });
@@ -87,8 +115,10 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
             ),
           );
         } else {
-          return Center(
-            child: Text("searching..."),
+          return Expanded(
+            child: Center(
+              child: Text("searching..."),
+            ),
           );
         }
       },
@@ -138,6 +168,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                       },
                       cursorColor: Theme.of(context).primaryColor,
                       textAlign: TextAlign.end,
+                      controller: _phraseController,
                       style: TextStyle(fontSize: 13),
                       decoration: InputDecoration(
                         hintText: "search",

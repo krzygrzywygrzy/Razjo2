@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:razjo/core/const.dart';
+import '../../../../core/const.dart';
 
 class DashboardSettingsPage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Column(

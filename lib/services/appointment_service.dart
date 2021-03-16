@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/appointment.dart';
+import '../core/erros/failures.dart';
+import '../models/appointment.dart';
 
 List<Appointment> _fakeAppointments = [
   Appointment(

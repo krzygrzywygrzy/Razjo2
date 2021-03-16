@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:razjo/routes/bloc/navigation_bloc.dart';
-import 'package:razjo/widgets/form_input.dart';
+import '../../bloc/navigation_bloc.dart';
+import '../../../widgets/form_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LogInPage extends StatelessWidget {
@@ -13,11 +13,13 @@ class LogInPage extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: _width > 420 ? 100: 0,
+          width: _width > 420 ? 100 : 0,
         ),
         Column(
-          mainAxisAlignment:  MainAxisAlignment.center,
-          crossAxisAlignment: _width > 420? CrossAxisAlignment.start: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: _width > 420
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.center,
           children: [
             Text(
               "Razjo",
@@ -65,7 +67,9 @@ class LogInPage extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: GestureDetector(
                         onTap: () {
-                          context.read<NavigationBloc>().add(GoToSignUpScreen());
+                          context
+                              .read<NavigationBloc>()
+                              .add(GoToSignUpScreen());
                         },
                         child: Text("sign up"),
                       ),

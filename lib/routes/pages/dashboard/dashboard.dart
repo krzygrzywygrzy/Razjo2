@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/models/user.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/pages/dashboard_home.dart';
-import 'package:razjo/routes/pages/dashboard/pages/dashboard_notes.dart';
-import 'package:razjo/routes/pages/dashboard/pages/dashboard_patients.dart';
-import 'package:razjo/routes/pages/dashboard/pages/dashboard_settings.dart';
-import 'package:razjo/routes/pages/dashboard/side_menu.dart';
-import 'package:razjo/widgets/account_card.dart';
+import '../../../core/const.dart';
+import '../../../models/user.dart';
+import 'bloc/dashboard_bloc.dart';
+import 'pages/dashboard_home.dart';
+import 'pages/dashboard_notes.dart';
+import 'pages/dashboard_patients.dart';
+import 'pages/dashboard_settings.dart';
+import 'side_menu.dart';
+import '../../../widgets/account_card.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({@required this.user});
@@ -83,9 +83,13 @@ class _DashboardState extends State<Dashboard> {
               child: BlocBuilder<DashboardBloc, DashboardState>(
                   builder: (context, state) {
                 if (state is DashboardHome)
-                  return DashboardHomePage(id: widget.user.id,);
+                  return DashboardHomePage(
+                    id: widget.user.id,
+                  );
                 else if (state is DashboardNotes)
-                  return DashboardNotesPage(id: widget.user.id,);
+                  return DashboardNotesPage(
+                    id: widget.user.id,
+                  );
                 else if (state is DashboardAppointments)
                   return Center(
                     child: Text("Appointments"),

@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/erros/exceptions.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/login_data.dart';
-import 'package:razjo/models/user.dart';
+import '../core/const.dart';
+import '../core/erros/exceptions.dart';
+import '../core/erros/failures.dart';
+import '../models/login_data.dart';
+import '../models/user.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/services/local_storage_service.dart';
+import 'local_storage_service.dart';
 
 class AuthenticationService {
   ///Manages login and registration
@@ -30,7 +30,8 @@ class AuthenticationService {
         LoginData cacheData = LoginData(email: email, password: password);
         _localStorage.saveToLocal(cacheData.toJson());
         return Right(User.fromJson(data));
-      } else throw LogInException();
+      } else
+        throw LogInException();
     } catch (_) {
       return Left(ConnectionFailure());
     }

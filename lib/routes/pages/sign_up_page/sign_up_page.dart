@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/models/user.dart';
-import 'package:razjo/routes/bloc/navigation_bloc.dart';
-import 'package:razjo/widgets/form_input.dart';
+import '../../../core/const.dart';
+import '../../../models/user.dart';
+import '../../bloc/navigation_bloc.dart';
+import '../../../widgets/form_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -123,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               "surname": surname,
                               "email": email,
                               "password": password,
-                              "role": !role ? "USR": "PSY",
+                              "role": !role ? "USR" : "PSY",
                             },
                           ),
                         );
