@@ -12,6 +12,7 @@ class AuthenticationService {
   ///
   /// Throws [EmailException] when email is in the database
   /// Throws [SignUpException] when there is problem while adding user to database
+  /// Throws [LogInException] when there is problem with login
   /// Catches [Exception] when unable to connect to the database
 
   Db db = Db(MONGO);
@@ -45,7 +46,10 @@ class AuthenticationService {
       var emailCheck = await collection.findOne({"email": user["email"]});
       if (emailCheck != null) throw EmailException();
 
+      //adding some nessesary fields
       user["contacts"] = [];
+      user["avatar"] = "";
+
       var res = await collection.insert(user);
       if (res["err"] == null) {
         return this.userLogin(user["email"], user["password"]);

@@ -10,23 +10,33 @@ class Appointment extends Equatable {
   final DateTime date;
   final TimeOfDay time;
 
-  factory Appointment.formJson(Map<String, dynamic> json){
+  factory Appointment.formJson(Map<String, dynamic> json) {
     return Appointment(
-      id: json['id'],
+      id: json['id'].toString(),
       name: json['name'],
       surname: json['surname'],
-      date: json['date'],
-      time: json['time'],
+      date: DateTime(
+        int.parse(json["year"]),
+        int.parse(json["month"]),
+        int.parse(json["day"]),
+      ),
+      time: TimeOfDay(
+        hour: int.parse(json["hour"]),
+        minute: int.parse(json["minute"]),
+      ),
     );
   }
 
-  Map<String, dynamic> toJson (){
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
       'surname': surname,
-      'date': date,
-      'time': time,
+      'year': date.year.toString(),
+      'month': date.month.toString(),
+      'day': date.day.toString(),
+      'hour': time.hour.toString(),
+      'minute': time.minute.toString(),
     };
   }
 

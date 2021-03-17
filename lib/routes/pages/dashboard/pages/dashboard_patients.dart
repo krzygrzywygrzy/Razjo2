@@ -5,7 +5,6 @@ import '../../../../core/const.dart';
 import '../../../../models/user.dart';
 import '../widgets/section_top_bar.dart';
 import '../../../../services/search_service.dart';
-import '../../../../widgets/account_card.dart';
 import '../../../../widgets/icon_round_button.dart';
 import '../../../../widgets/outline_button.dart';
 import '../../../../widgets/small_account_card.dart';
@@ -48,15 +47,33 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         children: [
           Column(
             children: [
-              AccountCard(
-                name: _selectedUser.name,
-                surname: _selectedUser.surname,
-                role: _selectedUser.role,
+              SizedBox(height: 60),
+              Container(
+                height: 60,
+                width: 60,
+                child: ClipOval(
+                  child: Image(
+                    image: AssetImage("assets/aph.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "${_selectedUser.name} ${_selectedUser.surname}",
+                style: kSubtitle,
+              ),
+              Text(
+                _selectedUser.role == "PSY" ? 'psychologist' : "patient",
+                style: TextStyle(color: kLightGrayAccent),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyOutlineButton(label: "Add Patient"),
+                  MyOutlineButton(label: "Send Message"),
                 ],
               ),
             ],

@@ -15,36 +15,11 @@ class AccountCard extends StatelessWidget {
   })  : _name = name,
         _surname = surname,
         _role = role,
-        _showLogOut = showLogOut,
         super(key: key);
 
   final String _name;
   final String _surname;
   final String _role;
-  final bool _showLogOut;
-
-  Widget logOut(context) {
-    if (_showLogOut == null || _showLogOut == false)
-      return Container();
-    else
-      return Positioned(
-        right: 40,
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () {
-              context.read<DashboardBloc>().add(GoToHome());
-              context.read<NavigationBloc>().add(LogOutEvent());
-            },
-            child: Icon(
-              Icons.logout,
-              size: 18,
-              color: kLightGrayAccent,
-            ),
-          ),
-        ),
-      );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +61,23 @@ class AccountCard extends StatelessWidget {
               ),
             ],
           ),
-          logOut(context),
+          Positioned(
+            right: 40,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  context.read<DashboardBloc>().add(GoToHome());
+                  context.read<NavigationBloc>().add(LogOutEvent());
+                },
+                child: Icon(
+                  Icons.logout,
+                  size: 18,
+                  color: kLightGrayAccent,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

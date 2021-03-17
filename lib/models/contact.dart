@@ -12,6 +12,22 @@ class Contact extends Equatable {
   final ObjectId psyId;
   final ObjectId patientId;
 
+  factory Contact.fromJson(Map<String, dynamic> json) {
+    return Contact(
+      id: json["id"],
+      psyId: json["psyId"],
+      patientId: json["patientId"],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "psyId": psyId,
+      "patientId": patientId,
+    };
+  }
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [id, psyId, patientId];
 }
