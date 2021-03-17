@@ -25,15 +25,17 @@ class User extends Equatable {
   final List<Inviataion> invatations;
 
   factory User.fromJson(Map<String, dynamic> json) {
+    //TODO: repair inviations parsing
+
     List<Contact> contactsJson = [];
     for (Map<String, dynamic> map in json["contacts"]) {
       contactsJson.add(Contact.fromJson(map));
     }
 
-    List<Inviataion> invitationsJson = [];
-    for (Map<String, dynamic> map in json["invitation"]) {
-      invitationsJson.add(Inviataion.fromJson(map));
-    }
+    // List<Inviataion> invitationsJson = [];
+    // for (Map<String, dynamic> map in json["invitation"]) {
+    //   invitationsJson.add(Inviataion.fromJson(map));
+    // }
 
     return User(
       name: json['name'],
@@ -42,8 +44,8 @@ class User extends Equatable {
       id: json['_id'],
       role: json['role'],
       avatar: json['avatar'],
-      contacts: contactsJson,
-      invatations: invitationsJson,
+      contacts: [],
+      invatations: [],
     );
   }
 
@@ -55,6 +57,7 @@ class User extends Equatable {
       "role": role,
       "_id": id,
     };
+    return map;
   }
 
   @override

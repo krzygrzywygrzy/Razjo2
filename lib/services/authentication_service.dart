@@ -33,7 +33,7 @@ class AuthenticationService {
         return Right(User.fromJson(data));
       } else
         throw LogInException();
-    } catch (_) {
+    } catch (e) {
       return Left(ConnectionFailure());
     }
   }
@@ -60,7 +60,7 @@ class AuthenticationService {
       return Left(EmailFailure());
     } on SignUpException {
       return Left(SignUpFailure());
-    } catch (_) {
+    } catch (e) {
       return Left(ConnectionFailure());
     }
   }

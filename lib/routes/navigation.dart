@@ -8,6 +8,7 @@ import 'pages/sign_up_page/sign_up_page.dart';
 class Navigation extends StatelessWidget {
   BlocBuilder<NavigationBloc, NavigationState> buildApp(BuildContext context) {
     return BlocBuilder<NavigationBloc, NavigationState>(
+      // ignore: missing_return
       builder: (context, state) {
         if (state is NavigationInitial) {
           context.read<NavigationBloc>().add(CheckAuthentication());

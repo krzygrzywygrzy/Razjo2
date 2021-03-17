@@ -16,11 +16,12 @@ class SearchService {
     await db.open();
     DbCollection collection = db.collection("users");
     List<User> found = [];
-    var data = await collection
-        .find(
-          where.match("name", "Oli"),
-        )
-        .toList();
+    var data = await collection.find(
+      {
+        '\$text': {'\$search': '\*$phrase\*'},
+      },
+    ).toList();
+
     data.forEach((element) {
       found.add(User.fromJson(element));
     });
