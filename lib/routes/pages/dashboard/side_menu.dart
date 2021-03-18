@@ -18,8 +18,6 @@ class _SideMenuState extends State<SideMenu> {
     "Notes",
     "Appointments",
     "Patients",
-    "Messages",
-    "Notifications",
     "Settings",
   ];
 
@@ -28,8 +26,6 @@ class _SideMenuState extends State<SideMenu> {
     Icons.note_rounded,
     Icons.paste_outlined,
     Icons.supervised_user_circle,
-    Icons.message_outlined,
-    Icons.notification_important_outlined,
     Icons.settings,
   ];
 

@@ -33,13 +33,3 @@ class GoToSettings extends DashboardEvent {
   @override
   List<Object> get props => [];
 }
-
-class GoToMessages extends DashboardEvent {
-  @override
-  List<Object> get props => [];
-}
-
-class GoToNotifications extends DashboardEvent {
-  @override
-  List<Object> get props => [];
-}

@@ -33,13 +33,3 @@ class DashboardSettings extends DashboardState {
   @override
   List<Object> get props => [];
 }
-
-class DashboardMessages extends DashboardState {
-  @override
-  List<Object> get props => [];
-}
-
-class DashboardNotifications extends DashboardState {
-  @override
-  List<Object> get props => [];
-}

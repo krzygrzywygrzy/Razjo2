@@ -15,7 +15,10 @@ class AuthenticationService {
   /// Throws [SignUpException] when there is problem while adding user to database
   /// Throws [LogInException] when there is problem with login
   /// Catches [Exception] when unable to connect to the database
-
+  ///
+  ///
+  /// TODO: use Mongo Authorization
+  ///
   Db db = Db(MONGO);
 
   Future<Either<Failure, User>> userLogin(email, password) async {

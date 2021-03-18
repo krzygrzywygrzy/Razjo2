@@ -67,14 +67,6 @@ class _DashboardState extends State<Dashboard> {
                           context.read<DashboardBloc>().add(GoToPatients());
                           break;
                         case 4:
-                          context.read<DashboardBloc>().add(GoToMessages());
-                          break;
-                        case 5:
-                          context
-                              .read<DashboardBloc>()
-                              .add(GoToNotifications());
-                          break;
-                        case 6:
                           context.read<DashboardBloc>().add(GoToSettings());
                           break;
                       }
@@ -108,10 +100,6 @@ class _DashboardState extends State<Dashboard> {
                   );
                 else if (state is DashboardSettings)
                   return DashboardSettingsPage();
-                else if (state is DashboardMessages)
-                  return DashboardNotificationPage();
-                else if (state is DashboardNotifications)
-                  return DashboardMessagesPage();
                 else {
                   context.read<DashboardBloc>().add(
                         LoadData(),
