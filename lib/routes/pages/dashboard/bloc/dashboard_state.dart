@@ -12,7 +12,6 @@ class DashboardInitial extends DashboardState {
 class DashboardHome extends DashboardState {
   @override
   List<Object> get props => [];
-
 }
 
 class DashboardNotes extends DashboardState {
@@ -26,8 +25,6 @@ class DashboardAppointments extends DashboardState {
 }
 
 class DashboardPatients extends DashboardState {
-
-
   @override
   List<Object> get props => [];
 }
@@ -37,4 +34,12 @@ class DashboardSettings extends DashboardState {
   List<Object> get props => [];
 }
 
+class DashboardMessages extends DashboardState {
+  @override
+  List<Object> get props => [];
+}
 
+class DashboardNotifications extends DashboardState {
+  @override
+  List<Object> get props => [];
+}

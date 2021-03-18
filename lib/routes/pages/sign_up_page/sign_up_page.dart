@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../core/const.dart';
-import '../../../models/user.dart';
 import '../../bloc/navigation_bloc.dart';
 import '../../../widgets/form_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

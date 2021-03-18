@@ -129,7 +129,8 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                           setState(() {
                             _state = 1;
                           });
-                        _searchService.search(value);
+                        var role = widget._user.role == "PSY" ? "USR" : "PSY";
+                        _searchService.search(value, role);
                       },
                       cursorColor: Theme.of(context).primaryColor,
                       textAlign: TextAlign.end,

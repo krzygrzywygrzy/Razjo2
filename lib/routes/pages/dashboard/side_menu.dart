@@ -18,21 +18,25 @@ class _SideMenuState extends State<SideMenu> {
     "Notes",
     "Appointments",
     "Patients",
+    "Messages",
+    "Notifications",
     "Settings",
   ];
 
   List<IconData> icons = [
     Icons.home,
     Icons.note_rounded,
-    Icons.add_alert,
+    Icons.paste_outlined,
     Icons.supervised_user_circle,
+    Icons.message_outlined,
+    Icons.notification_important_outlined,
     Icons.settings,
   ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 230,
       child: ListView.builder(
         itemBuilder: (context, index) {
           return MenuItem(

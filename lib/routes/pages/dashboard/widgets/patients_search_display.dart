@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:razjo/core/const.dart';
+import 'package:razjo/models/invitation.dart' as model;
 import 'package:razjo/models/user.dart';
+import 'package:razjo/services/notification_service.dart';
 import 'package:razjo/widgets/icon_round_button.dart';
 import 'package:razjo/widgets/outline_button.dart';
 
 class PatientsInfo extends StatelessWidget {
-  const PatientsInfo({
+  PatientsInfo({
     Key key,
     @required User selectedUser,
     @required User user,
@@ -15,6 +17,8 @@ class PatientsInfo extends StatelessWidget {
 
   final User _selectedUser;
   final User _user;
+
+  NotificationService _service;
 
   Widget bottomSection() {
     if (_user.role == "PSY") {
@@ -57,7 +61,18 @@ class PatientsInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyOutlineButton(
-                      label: _user.role == "PSY" ? "Add Patient" : "Sign Up"),
+                    label: _user.role == "PSY" ? "Add Patient" : "Sign Up",
+                    onTap: () {
+                      _service = NotificationService();
+                      _service.sendNotification(
+                        _selectedUser.notifications,
+                        model.Notification(
+                          type: _user.role == "PSY" ? "Add Patient" : "Sign Up",
+                          from: _user.id,
+                        ),
+                      );
+                    },
+                  ),
                   MyOutlineButton(label: "Send Message"),
                 ],
               ),

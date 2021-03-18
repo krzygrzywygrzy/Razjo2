@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:razjo/routes/pages/dashboard/pages/dashboard_messages.dart';
+import 'package:razjo/routes/pages/dashboard/pages/dashboard_notifications.dart';
 import '../../../core/const.dart';
 import '../../../models/user.dart';
 import 'bloc/dashboard_bloc.dart';
@@ -21,8 +23,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -67,6 +67,14 @@ class _DashboardState extends State<Dashboard> {
                           context.read<DashboardBloc>().add(GoToPatients());
                           break;
                         case 4:
+                          context.read<DashboardBloc>().add(GoToMessages());
+                          break;
+                        case 5:
+                          context
+                              .read<DashboardBloc>()
+                              .add(GoToNotifications());
+                          break;
+                        case 6:
                           context.read<DashboardBloc>().add(GoToSettings());
                           break;
                       }
@@ -100,9 +108,13 @@ class _DashboardState extends State<Dashboard> {
                   );
                 else if (state is DashboardSettings)
                   return DashboardSettingsPage();
+                else if (state is DashboardMessages)
+                  return DashboardNotificationPage();
+                else if (state is DashboardNotifications)
+                  return DashboardMessagesPage();
                 else {
                   context.read<DashboardBloc>().add(
-                        LoadData(user: widget.user),
+                        LoadData(),
                       );
                   return Container();
                 }

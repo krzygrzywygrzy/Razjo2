@@ -5,11 +5,8 @@ abstract class DashboardEvent extends Equatable {
 }
 
 class LoadData extends DashboardEvent {
-  LoadData({@required this.user});
-  final User user;
-
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [];
 }
 
 class GoToHome extends DashboardEvent {
@@ -33,6 +30,16 @@ class GoToPatients extends DashboardEvent {
 }
 
 class GoToSettings extends DashboardEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class GoToMessages extends DashboardEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class GoToNotifications extends DashboardEvent {
   @override
   List<Object> get props => [];
 }

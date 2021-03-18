@@ -13,6 +13,7 @@ class LocalStorageService {
 
   SharedPreferences _sharedPreferences;
 
+  // ignore: missing_return
   Future<Either<Failure, Map<String, dynamic>>> getLocalData() async {
     try {
       _sharedPreferences = await SharedPreferences.getInstance();

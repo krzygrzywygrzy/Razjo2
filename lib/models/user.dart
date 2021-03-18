@@ -45,7 +45,7 @@ class User extends Equatable {
       role: json['role'],
       avatar: json['avatar'],
       contacts: contactsJson,
-      notifications: json["notifcations"],
+      notifications: json["notifications"],
       messages: json["messasges"],
     );
   }
