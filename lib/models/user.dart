@@ -12,7 +12,9 @@ class User extends Equatable {
     this.role,
     this.contacts,
     this.avatar,
-    this.invatations,
+    this.notifications,
+    this.description,
+    this.messages,
   });
 
   final String name;
@@ -21,21 +23,19 @@ class User extends Equatable {
   final ObjectId id;
   final String role;
   final String avatar;
+  final String description;
   final List<Contact> contacts;
-  final List<Inviataion> invatations;
+  final String notifications;
+  final String messages;
 
   factory User.fromJson(Map<String, dynamic> json) {
     //TODO: repair inviations parsing
 
     List<Contact> contactsJson = [];
-    for (Map<String, dynamic> map in json["contacts"]) {
-      contactsJson.add(Contact.fromJson(map));
-    }
-
-    // List<Inviataion> invitationsJson = [];
-    // for (Map<String, dynamic> map in json["invitation"]) {
-    //   invitationsJson.add(Inviataion.fromJson(map));
-    // }
+    if (json["contacts"] != null)
+      for (Map<String, dynamic> map in json["contacts"]) {
+        contactsJson.add(Contact.fromJson(map));
+      }
 
     return User(
       name: json['name'],
@@ -44,8 +44,9 @@ class User extends Equatable {
       id: json['_id'],
       role: json['role'],
       avatar: json['avatar'],
-      contacts: [],
-      invatations: [],
+      contacts: contactsJson,
+      notifications: json["notifcations"],
+      messages: json["messasges"],
     );
   }
 

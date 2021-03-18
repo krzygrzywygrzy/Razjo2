@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
 import '../../../../core/const.dart';
 import '../../../../models/user.dart';
 import '../widgets/section_top_bar.dart';
 import '../../../../services/search_service.dart';
-import '../../../../widgets/icon_round_button.dart';
-import '../../../../widgets/outline_button.dart';
 import '../../../../widgets/small_account_card.dart';
 
 class DashboardPatientsPage extends StatefulWidget {
-  DashboardPatientsPage({@required mongo.ObjectId id}) : _id = id;
-  final mongo.ObjectId _id;
+  DashboardPatientsPage({
+    @required User user,
+  }) : _user = user;
+
+  final User _user;
 
   @override
   _DashboardPatientsPageState createState() => _DashboardPatientsPageState();
@@ -29,7 +30,8 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         return buildSearch();
         break;
       case 2:
-        return buildUserDisplay();
+        print(widget._user.role);
+        return PatientsInfo(selectedUser: _selectedUser, user: widget._user);
         break;
       default:
         return Expanded(
@@ -39,60 +41,6 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         );
         break;
     }
-  }
-
-  Widget buildUserDisplay() {
-    return Expanded(
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              SizedBox(height: 60),
-              Container(
-                height: 60,
-                width: 60,
-                child: ClipOval(
-                  child: Image(
-                    image: AssetImage("assets/aph.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "${_selectedUser.name} ${_selectedUser.surname}",
-                style: kSubtitle,
-              ),
-              Text(
-                _selectedUser.role == "PSY" ? 'psychologist' : "patient",
-                style: TextStyle(color: kLightGrayAccent),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MyOutlineButton(label: "Add Patient"),
-                  MyOutlineButton(label: "Send Message"),
-                ],
-              ),
-            ],
-          ),
-          // Message box
-          Positioned(
-            right: 8,
-            bottom: 8,
-            child: Row(
-              children: [
-                IconRoundButton(icon: Icons.video_call),
-                SizedBox(width: 8),
-                IconRoundButton(icon: Icons.message),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget buildSearch() {

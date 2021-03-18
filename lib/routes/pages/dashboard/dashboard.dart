@@ -95,7 +95,9 @@ class _DashboardState extends State<Dashboard> {
                     child: Text("Appointments"),
                   );
                 else if (state is DashboardPatients)
-                  return DashboardPatientsPage(id: widget.user.id);
+                  return DashboardPatientsPage(
+                    user: widget.user,
+                  );
                 else if (state is DashboardSettings)
                   return DashboardSettingsPage();
                 else {

@@ -6,6 +6,7 @@ import '../models/login_data.dart';
 import '../models/user.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'local_storage_service.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthenticationService {
   ///Manages login and registration
@@ -47,7 +48,9 @@ class AuthenticationService {
       if (emailCheck != null) throw EmailException();
 
       //adding some nessesary fields
+      String uuid = Uuid().v4();
       user["contacts"] = [];
+      user["notifications"] = 'notifications-$uuid';
       user["avatar"] = "";
 
       var res = await collection.insert(user);
