@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
 import 'package:razjo/services/notification_service.dart';
+import 'package:razjo/widgets/account_accept_card.dart';
 import '../../../../core/const.dart';
 import '../../../../models/user.dart';
 import '../widgets/section_top_bar.dart';
@@ -114,7 +115,13 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                     ),
                   ],
                 ),
-                buildInvitations(),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      buildInvitations(),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -178,22 +185,26 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         builder: (BuildContext context,
             AsyncSnapshot<dartz.Either<Failure, List<User>>> snapshot) {
           if (snapshot.hasData && snapshot.data.isRight()) {
-            List<User> list = snapshot.data.getOrElse(() => []);
+            List<User> list = (snapshot.data as dartz.Right).value;
             if (list.length > 0) {
-              return Expanded(
+              return Padding(
+                padding: const EdgeInsets.only(right: 15.0, left: 15, top: 8),
                 child: Container(
+                  height: list.length * 60.0,
                   child: ListView.builder(
                     itemCount: list.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        child: Text(list[index].name),
+                      return AccountAcceptCard(
+                        user: list[index],
                       );
                     },
                   ),
                 ),
               );
             } else
-              return Container();
+              return Container(
+                child: Text("nwm co sie dzieje!"),
+              );
           } else {
             //final Failure failure = (snapshot.data as dartz.Left).value;
             return Center(

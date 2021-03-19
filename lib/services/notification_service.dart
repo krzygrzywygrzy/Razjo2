@@ -32,11 +32,12 @@ class InvitationService {
       UserService _userService = UserService();
       response.forEach((element) async {
         var data = await _userService.getUser(element["from"]);
-        if (data.isRight())
-          invitations.add(data.getOrElse(() => User()));
-        else
-          return (data as Left).value;
+        if (data.isRight()) {
+          final User user = data.getOrElse(() => User());
+          invitations.add(user);
+        } else {}
       });
+      return Right(invitations);
     } on SocketException {
       return Left(ConnectionFailure());
     }
