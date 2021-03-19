@@ -18,7 +18,7 @@ class PatientsInfo extends StatelessWidget {
   final User _selectedUser;
   final User _user;
 
-  NotificationService _service;
+  InvitationService _service;
 
   Widget bottomSection() {
     if (_user.role == "PSY") {
@@ -63,17 +63,16 @@ class PatientsInfo extends StatelessWidget {
                   MyOutlineButton(
                     label: _user.role == "PSY" ? "Add Patient" : "Sign Up",
                     onTap: () {
-                      _service = NotificationService();
-                      _service.sendNotification(
+                      _service = InvitationService();
+                      _service.sendInviataion(
                         _selectedUser.notifications,
-                        model.Notification(
+                        model.Invitation(
                           type: _user.role == "PSY" ? "Add Patient" : "Sign Up",
                           from: _user.id,
                         ),
                       );
                     },
                   ),
-                  MyOutlineButton(label: "Send Message"),
                 ],
               ),
               Padding(
@@ -93,13 +92,7 @@ class PatientsInfo extends StatelessWidget {
           Positioned(
             right: 8,
             bottom: 8,
-            child: Row(
-              children: [
-                IconRoundButton(icon: Icons.video_call),
-                SizedBox(width: 8),
-                IconRoundButton(icon: Icons.message),
-              ],
-            ),
+            child: IconRoundButton(icon: Icons.video_call),
           ),
         ],
       ),

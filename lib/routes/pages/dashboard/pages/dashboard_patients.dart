@@ -1,6 +1,9 @@
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
+import 'package:razjo/services/notification_service.dart';
 import '../../../../core/const.dart';
 import '../../../../models/user.dart';
 import '../widgets/section_top_bar.dart';
@@ -20,6 +23,7 @@ class DashboardPatientsPage extends StatefulWidget {
 
 class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   SearchService _searchService = SearchService();
+  InvitationService _invitationService = InvitationService();
   int _state = 0;
   User _selectedUser;
   var _phraseController = TextEditingController();
@@ -110,6 +114,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                     ),
                   ],
                 ),
+                buildInvitations(),
               ],
             ),
           ),
@@ -159,11 +164,44 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                   ),
                 ],
               ),
-              buildRightSection(),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Container buildInvitations() {
+    return Container(
+      child: FutureBuilder(
+        future: _invitationService.getInvitations(widget._user.notifications),
+        builder: (BuildContext context,
+            AsyncSnapshot<dartz.Either<Failure, List<User>>> snapshot) {
+          if (snapshot.hasData && snapshot.data.isRight()) {
+            List<User> list = snapshot.data.getOrElse(() => []);
+            if (list.length > 0) {
+              return Expanded(
+                child: Container(
+                  child: ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Text(list[index].name),
+                      );
+                    },
+                  ),
+                ),
+              );
+            } else
+              return Container();
+          } else {
+            //final Failure failure = (snapshot.data as dartz.Left).value;
+            return Center(
+              child: Text("Loading..."),
+            );
+          }
+        },
+      ),
     );
   }
 }

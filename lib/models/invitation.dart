@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 //TODO:
-class Notification extends Equatable {
-  Notification({
+class Invitation extends Equatable {
+  Invitation({
     this.from,
     this.type,
   });
   final ObjectId from;
   final String type;
 
-  factory Notification.fromJson(Map<String, dynamic> json) {
-    return Notification(
+  factory Invitation.fromJson(Map<String, dynamic> json) {
+    return Invitation(
       from: json["from"],
       type: json["type"],
     );

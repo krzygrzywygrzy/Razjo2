@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/pages/dashboard_messages.dart';
-import 'package:razjo/routes/pages/dashboard/pages/dashboard_notifications.dart';
 import '../../../core/const.dart';
 import '../../../models/user.dart';
 import 'bloc/dashboard_bloc.dart';
