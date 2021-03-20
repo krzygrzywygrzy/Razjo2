@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:razjo/core/const.dart';
@@ -10,8 +9,14 @@ import 'package:razjo/models/user.dart';
 import 'package:razjo/services/user_service.dart';
 
 class InvitationService {
+  /// Manages everything connected to sending, deleting, and geting list of invitations
+  /// method [sendInvitation] sends new invitation
+  /// method [getInvattions] gets all invitations send to user
+  /// method [deleteInvitation] deletes invitation by [ObjectId]
+  ///
+
   Db db = Db(MONGO);
-  //TODO: error handling
+  //TODO: handle errors
 
   Future<void> sendInviataion(String collection, Invitation invitation) async {
     try {
@@ -40,6 +45,19 @@ class InvitationService {
       return Right(invitations);
     } on SocketException {
       return Left(ConnectionFailure());
+    } on DbException {
+      return Left(
+        DbFailure(message: "error getting invitations"),
+      );
     }
+  }
+
+  Future<void> deleteInvitation(ObjectId id, String collection) async {
+    //TODO: handle exceptions
+    try {
+      await db.open();
+      DbCollection coll = db.collection(collection);
+      coll.remove(where.id(id));
+    } on SocketException {} on DbException {}
   }
 }

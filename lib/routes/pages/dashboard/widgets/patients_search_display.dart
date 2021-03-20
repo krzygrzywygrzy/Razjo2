@@ -67,7 +67,6 @@ class PatientsInfo extends StatelessWidget {
                       _service.sendInviataion(
                         _selectedUser.notifications,
                         model.Invitation(
-                          type: _user.role == "PSY" ? "Add Patient" : "Sign Up",
                           from: _user.id,
                         ),
                       );

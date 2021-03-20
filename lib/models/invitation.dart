@@ -1,31 +1,29 @@
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
-//TODO:
 class Invitation extends Equatable {
   Invitation({
     this.from,
-    this.type,
+    this.id,
   });
   final ObjectId from;
-  final String type;
+  final ObjectId id;
 
   factory Invitation.fromJson(Map<String, dynamic> json) {
     return Invitation(
       from: json["from"],
-      type: json["type"],
+      id: json["_id"],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       "from": from,
-      "type": type,
     };
   }
 
   @override
-  List<Object> get props => [from, type];
+  List<Object> get props => [from, id];
 
   @override
   bool get stringify => false;
