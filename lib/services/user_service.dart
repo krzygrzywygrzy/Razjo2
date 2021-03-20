@@ -26,4 +26,17 @@ class UserService {
       return Left(DbFailure(message: "No user found"));
     }
   }
+
+  Future<Either<Failure, bool>> editArray(
+      ObjectId user, String field, String entry) async {
+    try {
+      await db.open();
+      //TODO: finish
+      throw UnimplementedError();
+    } on DbException {
+      return Left(DbFailure(message: "cannot edit array"));
+    } on SocketException {
+      return Left(ConnectionFailure());
+    }
+  }
 }
