@@ -13,7 +13,6 @@ class InvitationService {
   /// method [sendInvitation] sends new invitation
   /// method [getInvattions] gets all invitations send to user
   /// method [deleteInvitation] deletes invitation by [ObjectId]
-  ///
 
   Db db = Db(MONGO);
   //TODO: handle errors

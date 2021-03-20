@@ -29,8 +29,6 @@ class User extends Equatable {
   final String messages;
 
   factory User.fromJson(Map<String, dynamic> json) {
-    //TODO: repair inviations parsing
-
     List<Contact> contactsJson = [];
     if (json["contacts"] != null)
       for (Map<String, dynamic> map in json["contacts"]) {
