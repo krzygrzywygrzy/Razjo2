@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:razjo/core/const.dart';
@@ -31,8 +30,15 @@ class UserService {
       ObjectId user, String field, String entry) async {
     try {
       await db.open();
-      //TODO: finish
-      throw UnimplementedError();
+      //throw UnimplementedError();
+      var response = await db.collection("users").update(
+            where.id(user),
+            modify.push(field, entry),
+          );
+      if (response["\$err"] != null) {
+        return Right(true);
+      } else
+        throw DbException();
     } on DbException {
       return Left(DbFailure(message: "cannot edit array"));
     } on SocketException {

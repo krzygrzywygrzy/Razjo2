@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
+import 'package:razjo/services/contact_service.dart';
 import 'package:razjo/services/notification_service.dart';
+import 'package:razjo/services/user_service.dart';
 import 'package:razjo/widgets/account_accept_card.dart';
 import '../../../../core/const.dart';
 import '../../../../models/user.dart';
@@ -179,6 +181,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   }
 
   Container buildInvitations() {
+    ContactService _contactService;
     return Container(
       child: FutureBuilder(
         future: _invitationService.getInvitations(widget._user.notifications),
@@ -196,6 +199,30 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                     itemBuilder: (context, index) {
                       return AccountAcceptCard(
                         user: list[index],
+                        accept: () async {
+                          _contactService = ContactService();
+                          var res = await _contactService.addContact(
+                              widget._user.role == "PSY"
+                                  ? widget._user.id
+                                  : list[index].id,
+                              widget._user.role == "PSY"
+                                  ? list[index].id
+                                  : widget._user.id);
+                          if (res.isRight()) {
+                            _invitationService.deleteInvitation(
+                                list[index].id, widget._user.notifications);
+                            setState(() {
+                              list.removeAt(index);
+                            });
+                          }
+                        },
+                        delete: () {
+                          _invitationService.deleteInvitation(
+                              list[index].id, widget._user.notifications);
+                          setState(() {
+                            list.removeAt(index);
+                          });
+                        },
                       );
                     },
                   ),

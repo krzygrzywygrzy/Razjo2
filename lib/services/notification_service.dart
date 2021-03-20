@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:dartz/dartz.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:razjo/core/const.dart';
@@ -56,7 +57,7 @@ class InvitationService {
     try {
       await db.open();
       DbCollection coll = db.collection(collection);
-      coll.remove(where.id(id));
+      coll.remove(where.eq("from", id));
     } on SocketException {} on DbException {}
   }
 }

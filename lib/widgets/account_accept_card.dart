@@ -7,9 +7,13 @@ class AccountAcceptCard extends StatelessWidget {
   const AccountAcceptCard({
     Key key,
     @required this.user,
+    this.accept,
+    this.delete,
   }) : super(key: key);
 
   final User user;
+  final Function accept;
+  final Function delete;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,7 @@ class AccountAcceptCard extends StatelessWidget {
           ),
           SizedBox(width: 24),
           GestureDetector(
+            onTap: accept,
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Icon(Icons.check_outlined),
@@ -50,6 +55,7 @@ class AccountAcceptCard extends StatelessWidget {
           ),
           SizedBox(width: 8),
           GestureDetector(
+            onTap: delete,
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Icon(Icons.clear_rounded),

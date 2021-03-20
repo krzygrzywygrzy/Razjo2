@@ -5,7 +5,6 @@ import 'package:razjo/core/const.dart';
 import 'package:razjo/core/erros/exceptions.dart';
 import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/models/contact.dart';
-import 'package:razjo/models/user.dart';
 import 'package:razjo/services/user_service.dart';
 import 'package:uuid/uuid.dart';
 
@@ -33,6 +32,9 @@ class ContactService {
             psychologist, "contatcts", contactCollection);
         final usr =
             await service.editArray(patient, "contatcts", contactCollection);
+        print(usr);
+        print(psy);
+
         if (psy.isRight() && usr.isRight()) {
           return Right(true);
         } else

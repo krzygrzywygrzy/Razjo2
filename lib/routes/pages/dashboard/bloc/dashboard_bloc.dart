@@ -9,7 +9,6 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardHome());
 
-  // ignore: close_sinks
   @override
   Stream<DashboardState> mapEventToState(
     DashboardEvent event,
