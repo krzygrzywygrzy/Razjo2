@@ -21,7 +21,6 @@ class SearchService {
 
     data.forEach((element) {
       found.add(User.fromJson(element));
-      print(element);
     });
     _resultSink.add(found);
   }

@@ -1,11 +1,14 @@
 import 'package:dartz/dartz.dart' as dartz;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:razjo/core/erros/failures.dart';
+import 'package:razjo/models/contact.dart';
+import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
 import 'package:razjo/services/contact_service.dart';
 import 'package:razjo/services/notification_service.dart';
-import 'package:razjo/services/user_service.dart';
 import 'package:razjo/widgets/account_accept_card.dart';
 import '../../../../core/const.dart';
 import '../../../../models/user.dart';
@@ -16,17 +19,23 @@ import '../../../../widgets/small_account_card.dart';
 class DashboardPatientsPage extends StatefulWidget {
   DashboardPatientsPage({
     @required User user,
-  }) : _user = user;
+    @required List<Contact> contacts,
+  })  : _user = user,
+        _contacts = contacts;
 
   final User _user;
+  final List<Contact> _contacts;
 
   @override
   _DashboardPatientsPageState createState() => _DashboardPatientsPageState();
 }
 
+//TODO: move some elements to separate file
+
 class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   SearchService _searchService = SearchService();
   InvitationService _invitationService = InvitationService();
+  ContactService _contactService = ContactService();
   int _state = 0;
   User _selectedUser;
   var _phraseController = TextEditingController();
@@ -37,7 +46,6 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         return buildSearch();
         break;
       case 2:
-        print(widget._user.role);
         return PatientsInfo(selectedUser: _selectedUser, user: widget._user);
         break;
       default:
@@ -55,6 +63,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
       stream: _searchService.resultStream,
       builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
         if (snapshot.hasData) {
+          //TODO: display errors and information about 0 results
           return Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -121,6 +130,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                   child: Column(
                     children: [
                       buildInvitations(),
+                      buildContacts(context),
                     ],
                   ),
                 ),
@@ -173,10 +183,29 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                   ),
                 ],
               ),
+              buildRightSection(),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildContacts(context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Container(
+        height: 470,
+        child: ListView.builder(
+          itemCount: widget._contacts.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: SmallAccountCard(name: "Oli", role: "PSY", email: "damn"),
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -229,9 +258,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                 ),
               );
             } else
-              return Container(
-                child: Text("nwm co sie dzieje!"),
-              );
+              return Container();
           } else {
             //final Failure failure = (snapshot.data as dartz.Left).value;
             return Center(

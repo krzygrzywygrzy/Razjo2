@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/models/invitation.dart';
-import 'contact.dart';
 
 class User extends Equatable {
   User({
@@ -24,16 +22,13 @@ class User extends Equatable {
   final String role;
   final String avatar;
   final String description;
-  final List<Contact> contacts;
+  final List<String> contacts;
   final String notifications;
   final String messages;
 
   factory User.fromJson(Map<String, dynamic> json) {
-    List<Contact> contactsJson = [];
-    if (json["contacts"] != null)
-      for (Map<String, dynamic> map in json["contacts"]) {
-        contactsJson.add(Contact.fromJson(map));
-      }
+    List<String> contactsJson = [];
+    for (String str in json["contacts"]) contactsJson.add(str);
 
     return User(
       name: json['name'],

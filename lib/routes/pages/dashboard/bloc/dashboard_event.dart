@@ -5,8 +5,10 @@ abstract class DashboardEvent extends Equatable {
 }
 
 class LoadData extends DashboardEvent {
+  LoadData({@required this.contacts});
+  final List<String> contacts;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [contacts];
 }
 
 class GoToHome extends DashboardEvent {

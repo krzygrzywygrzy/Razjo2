@@ -35,7 +35,8 @@ class UserService {
             where.id(user),
             modify.push(field, entry),
           );
-      if (response["\$err"] != null) {
+
+      if (response["err"] == null) {
         return Right(true);
       } else
         throw DbException();

@@ -95,14 +95,17 @@ class _DashboardState extends State<Dashboard> {
                 else if (state is DashboardPatients)
                   return DashboardPatientsPage(
                     user: widget.user,
+                    contacts: state.contacts,
                   );
                 else if (state is DashboardSettings)
                   return DashboardSettingsPage();
                 else {
                   context.read<DashboardBloc>().add(
-                        LoadData(),
+                        LoadData(contacts: widget.user.contacts),
                       );
-                  return Container();
+                  return Center(
+                    child: Text("loading..."),
+                  );
                 }
               }),
             ),

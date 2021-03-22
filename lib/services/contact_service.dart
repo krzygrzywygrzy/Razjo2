@@ -47,4 +47,24 @@ class ContactService {
       return Left(ConnectionFailure());
     }
   }
+
+  Future<Either<Failure, List<Contact>>> getContacts(
+      List<String> collections) async {
+    List<Contact> list = [];
+    try {
+      await db.open();
+      for (String coll in collections) {
+        var res = await db.collection(coll).find().single;
+        if (res["err"] == null) {
+          list.add(Contact.fromJson(res));
+        } else
+          throw DbException();
+      }
+      return Right(list);
+    } on DbException {
+      return Left(DbFailure(message: "Cannot get contacts"));
+    } on SocketException {
+      return Left(ConnectionFailure());
+    }
+  }
 }
