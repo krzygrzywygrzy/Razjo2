@@ -46,4 +46,23 @@ class UserService {
       return Left(ConnectionFailure());
     }
   }
+
+  //TODO: error handling
+  Future<Either<Failure, List<User>>> getUsers(List<ObjectId> ids) async {
+    List<User> list = [];
+    try {
+      for (ObjectId id in ids) {
+        var res = await this.getUser(id);
+        if (res.isRight())
+          list.add((res as Right).value);
+        else {
+          if ((res as Left).value is DbFailure)
+            throw DbException;
+          else
+            throw SocketException("");
+        }
+      }
+      return Right(list);
+    } on DbException {} on SocketException {}
+  }
 }

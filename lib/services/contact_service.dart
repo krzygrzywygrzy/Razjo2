@@ -32,8 +32,6 @@ class ContactService {
             psychologist, "contatcts", contactCollection);
         final usr =
             await service.editArray(patient, "contatcts", contactCollection);
-        print(usr);
-        print(psy);
 
         if (psy.isRight() && usr.isRight()) {
           return Right(true);
@@ -66,5 +64,12 @@ class ContactService {
     } on SocketException {
       return Left(ConnectionFailure());
     }
+  }
+
+  //TODO: error handling
+  Future<Either<Failure, bool>> removeContact() async {
+    try {
+      await db.open();
+    } on DbException {}
   }
 }

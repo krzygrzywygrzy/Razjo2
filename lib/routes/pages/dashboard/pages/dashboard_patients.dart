@@ -1,14 +1,15 @@
 import 'package:dartz/dartz.dart' as dartz;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/models/contact.dart';
 import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
 import 'package:razjo/services/contact_service.dart';
 import 'package:razjo/services/notification_service.dart';
+import 'package:razjo/services/user_service.dart';
 import 'package:razjo/widgets/account_accept_card.dart';
 import '../../../../core/const.dart';
 import '../../../../models/user.dart';
@@ -36,6 +37,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   SearchService _searchService = SearchService();
   InvitationService _invitationService = InvitationService();
   ContactService _contactService = ContactService();
+  UserService _userService = UserService();
   int _state = 0;
   User _selectedUser;
   var _phraseController = TextEditingController();
@@ -46,7 +48,20 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         return buildSearch();
         break;
       case 2:
-        return PatientsInfo(selectedUser: _selectedUser, user: widget._user);
+        bool inContact = false;
+        for (Contact contact in widget._contacts) {
+          if (widget._user.role == "PSY") {
+            if (contact.patientId == _selectedUser.id) {
+              inContact = true;
+              break;
+            }
+          }
+        }
+        return PatientsInfo(
+          selectedUser: _selectedUser,
+          user: widget._user,
+          inContact: inContact,
+        );
         break;
       default:
         return Expanded(
@@ -192,19 +207,43 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   }
 
   Widget buildContacts(context) {
+    List<mongo.ObjectId> ids = List.generate(
+        widget._contacts.length,
+        (index) => widget._user.role == "PSY"
+            ? widget._contacts[index].patientId
+            : widget._contacts[index].psyId);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        height: 470,
-        child: ListView.builder(
-          itemCount: widget._contacts.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: SmallAccountCard(name: "Oli", role: "PSY", email: "damn"),
+      child: FutureBuilder(
+        future: _userService.getUsers(ids),
+        builder: (BuildContext context,
+            AsyncSnapshot<dartz.Either<Failure, List<User>>> snapshot) {
+          if (snapshot.hasData && snapshot.data.isRight()) {
+            List<User> list = (snapshot.data as dartz.Right).value;
+            List<Widget> children = List.generate(
+              list.length,
+              (index) => Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: SmallAccountCard(
+                  name: '${list[index].name} ${list[index].surname}',
+                  role: '${list[index].role}',
+                  email: '${list[index].email}',
+                  select: () {
+                    setState(() {
+                      _selectedUser = list[index];
+                      _state = 2;
+                    });
+                  },
+                ),
+              ),
             );
-          },
-        ),
+
+            return Column(
+              children: children,
+            );
+          } else
+            return Text("Loading");
+        },
       ),
     );
   }

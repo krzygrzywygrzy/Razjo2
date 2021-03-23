@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:razjo/core/const.dart';
+import 'package:razjo/models/contact.dart';
 import 'package:razjo/models/invitation.dart' as model;
 import 'package:razjo/models/user.dart';
 import 'package:razjo/services/notification_service.dart';
@@ -11,12 +12,18 @@ class PatientsInfo extends StatelessWidget {
     Key key,
     @required User selectedUser,
     @required User user,
+    @required bool inContact,
+    Contact contact,
   })  : _selectedUser = selectedUser,
         _user = user,
+        _inContact = inContact,
+        _contact = contact,
         super(key: key);
 
   final User _selectedUser;
   final User _user;
+  final bool _inContact;
+  final Contact _contact;
 
   InvitationService _service;
 
@@ -61,15 +68,18 @@ class PatientsInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MyOutlineButton(
-                    label: _user.role == "PSY" ? "Add Patient" : "Sign Up",
+                    label: _inContact ? "Remove Contact" : "Add Contact",
                     onTap: () {
-                      _service = InvitationService();
-                      _service.sendInviataion(
-                        _selectedUser.notifications,
-                        model.Invitation(
-                          from: _user.id,
-                        ),
-                      );
+                      if (_inContact) {
+                      } else {
+                        _service = InvitationService();
+                        _service.sendInviataion(
+                          _selectedUser.notifications,
+                          model.Invitation(
+                            from: _user.id,
+                          ),
+                        );
+                      }
                     },
                   ),
                 ],

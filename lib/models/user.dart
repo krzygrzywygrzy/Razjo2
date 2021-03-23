@@ -28,7 +28,8 @@ class User extends Equatable {
 
   factory User.fromJson(Map<String, dynamic> json) {
     List<String> contactsJson = [];
-    for (String str in json["contacts"]) contactsJson.add(str);
+    if (json["contacts"] != null)
+      for (String str in json["contacts"]) contactsJson.add(str);
 
     return User(
       name: json['name'],
