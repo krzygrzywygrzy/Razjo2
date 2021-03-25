@@ -67,9 +67,16 @@ class ContactService {
   }
 
   //TODO: error handling
-  Future<Either<Failure, bool>> removeContact() async {
+  Future<Either<Failure, bool>> removeContact(
+      String coll, List<ObjectId> users) async {
     try {
       await db.open();
-    } on DbException {}
+      for (ObjectId id in users) {
+        var res = await db
+            .collection("users")
+            .findOne(where.id(id).fields(["contacts"]));
+        print(res);
+      }
+    } on DbException {} on SocketException {}
   }
 }

@@ -41,6 +41,7 @@ class User extends Equatable {
       contacts: contactsJson,
       notifications: json["notifications"],
       messages: json["messasges"],
+      description: json["description"],
     );
   }
 

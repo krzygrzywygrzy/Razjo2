@@ -3,6 +3,7 @@ import 'package:razjo/core/const.dart';
 import 'package:razjo/models/contact.dart';
 import 'package:razjo/models/invitation.dart' as model;
 import 'package:razjo/models/user.dart';
+import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
 import 'package:razjo/services/notification_service.dart';
 import 'package:razjo/widgets/icon_round_button.dart';
 import 'package:razjo/widgets/outline_button.dart';
@@ -28,10 +29,23 @@ class PatientsInfo extends StatelessWidget {
   InvitationService _service;
 
   Widget bottomSection() {
-    if (_user.role == "PSY") {
-      return Text("Add this user to your patients to see notes");
+    if (_inContact) {
+      //TODO:
+      return Column(
+        children: [
+          SectionTopBar(
+            children: [
+              Text("Notes"),
+            ],
+          ),
+        ],
+      );
     } else {
-      return Text("PSY description");
+      if (_user.role == "PSY")
+        return Text("Add this user to your contacts to see more options");
+      else {
+        return Text("${_selectedUser.description}");
+      }
     }
   }
 
@@ -40,62 +54,65 @@ class PatientsInfo extends StatelessWidget {
     return Expanded(
       child: Stack(
         children: [
-          Column(
-            children: [
-              SizedBox(height: 60),
-              Container(
-                height: 60,
-                width: 60,
-                child: ClipOval(
-                  child: Image(
-                    image: AssetImage("assets/aph.jpg"),
-                    fit: BoxFit.cover,
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 60),
+                Container(
+                  height: 60,
+                  width: 60,
+                  child: ClipOval(
+                    child: Image(
+                      image: AssetImage("assets/aph.jpg"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "${_selectedUser.name} ${_selectedUser.surname}",
-                style: kSubtitle,
-              ),
-              Text(
-                _selectedUser.role == "PSY" ? 'psychologist' : "patient",
-                style: TextStyle(color: kLightGrayAccent),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MyOutlineButton(
-                    label: _inContact ? "Remove Contact" : "Add Contact",
-                    onTap: () {
-                      if (_inContact) {
-                      } else {
-                        _service = InvitationService();
-                        _service.sendInviataion(
-                          _selectedUser.notifications,
-                          model.Invitation(
-                            from: _user.id,
-                          ),
-                        );
-                      }
-                    },
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "${_selectedUser.name} ${_selectedUser.surname}",
+                  style: kSubtitle,
+                ),
+                Text(
+                  _selectedUser.role == "PSY" ? 'psychologist' : "patient",
+                  style: TextStyle(color: kLightGrayAccent),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyOutlineButton(
+                      label: _inContact ? "Remove Contact" : "Add Contact",
+                      onTap: () {
+                        if (_inContact) {
+                        } else {
+                          _service = InvitationService();
+                          _service.sendInviataion(
+                            _selectedUser.notifications,
+                            model.Invitation(
+                              from: _user.id,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 60,
                   ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 60,
+                  child: Container(
+                    height: 8,
+                    decoration: BoxDecoration(
+                        border: _inContact ? Border() : kBottomBorder),
+                  ),
                 ),
-                child: Container(
-                  height: 8,
-                  decoration: BoxDecoration(border: kBottomBorder),
-                ),
-              ),
-              SizedBox(height: 8),
-              bottomSection(),
-            ],
+                SizedBox(height: 8),
+                bottomSection(),
+              ],
+            ),
           ),
           // Message box
           Positioned(
