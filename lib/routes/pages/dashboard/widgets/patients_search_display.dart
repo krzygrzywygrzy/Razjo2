@@ -28,6 +28,11 @@ class PatientsInfo extends StatelessWidget {
 
   InvitationService _service;
 
+  Widget buildTable() {
+    //TODO: implement
+    return Container();
+  }
+
   Widget bottomSection() {
     if (_inContact) {
       //TODO:
@@ -35,18 +40,59 @@ class PatientsInfo extends StatelessWidget {
         children: [
           SectionTopBar(
             children: [
-              Text("Notes"),
+              Text(
+                "Notes",
+                style: kSubtitle,
+              ),
             ],
           ),
+          _contact.notes.length > 0
+              ? buildTable()
+              : message("There is nothing here yet!"),
+          _user.role == "PSY"
+              ? SectionTopBar(
+                  children: [
+                    Text(
+                      "Your private notes",
+                      style: kSubtitle,
+                    )
+                  ],
+                )
+              : null,
+          (_user.role == "PSY") && _contact.psyPrivate.length > 0
+              ? buildTable()
+              : message("You haven't saved anything yet!"),
         ],
       );
     } else {
       if (_user.role == "PSY")
         return Text("Add this user to your contacts to see more options");
       else {
-        return Text("${_selectedUser.description}");
+        return Text(
+          "${_selectedUser.description}",
+        );
       }
     }
+  }
+
+  Widget message(String text) {
+    return Row(
+      children: [
+        Container(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 15,
+            ),
+            child: Text(
+              "$text",
+              textAlign: TextAlign.start,
+              style: TextStyle(color: kLightGrayAccent),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   @override

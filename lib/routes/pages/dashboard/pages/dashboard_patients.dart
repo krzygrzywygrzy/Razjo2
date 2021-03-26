@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:razjo/core/erros/failures.dart';
 import 'package:razjo/models/contact.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
 import 'package:razjo/services/contact_service.dart';
 import 'package:razjo/services/notification_service.dart';
@@ -49,10 +47,12 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         break;
       case 2:
         bool inContact = false;
+        Contact actualContact;
         for (Contact contact in widget._contacts) {
           if (widget._user.role == "PSY") {
             if (contact.patientId == _selectedUser.id) {
               inContact = true;
+              actualContact = contact;
               break;
             }
           }
@@ -61,12 +61,16 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
           selectedUser: _selectedUser,
           user: widget._user,
           inContact: inContact,
+          contact: inContact ? actualContact : null,
         );
         break;
       default:
         return Expanded(
           child: Center(
-            child: Text("Choose patient to display information about him/her"),
+            child: Text(
+              "Choose patient to display information about him/her",
+              style: TextStyle(color: kLightGrayAccent),
+            ),
           ),
         );
         break;

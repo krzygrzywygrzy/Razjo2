@@ -20,10 +20,13 @@ class NoteCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "${_note.name}",
-            style: kSubtitle,
-            overflow: TextOverflow.ellipsis,
+          Padding(
+            padding: EdgeInsets.only(top: 4),
+            child: Text(
+              "${_note.name}",
+              style: kSubtitle,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Expanded(
             child: MouseRegion(

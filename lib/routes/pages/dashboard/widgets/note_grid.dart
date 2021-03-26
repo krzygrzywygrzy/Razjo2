@@ -68,7 +68,10 @@ class NoteGird extends StatelessWidget {
                 List<Note> _notes = snapshot.data.getOrElse(() => <Note>[]);
                 return Expanded(
                     child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  padding: EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                  ),
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisSpacing: 10,
