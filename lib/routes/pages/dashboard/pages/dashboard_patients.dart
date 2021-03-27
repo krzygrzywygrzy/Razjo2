@@ -34,7 +34,6 @@ class DashboardPatientsPage extends StatefulWidget {
 class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   SearchService _searchService = SearchService();
   InvitationService _invitationService = InvitationService();
-  ContactService _contactService = ContactService();
   UserService _userService = UserService();
   int _state = 0;
   User _selectedUser;

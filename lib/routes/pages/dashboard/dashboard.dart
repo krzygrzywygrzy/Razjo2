@@ -86,6 +86,7 @@ class _DashboardState extends State<Dashboard> {
                   );
                 else if (state is DashboardNotes)
                   return DashboardNotesPage(
+                    role: widget.user.role,
                     contacts: state.contacts,
                     notes: state.notes,
                   );

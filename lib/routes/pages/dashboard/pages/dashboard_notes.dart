@@ -7,13 +7,20 @@ import '../../../../core/const.dart';
 import '../widgets/note_grid.dart';
 
 class DashboardNotesPage extends StatefulWidget {
-  DashboardNotesPage(
-      {@required List<Note> notes, @required List<ContactMinimum> contacts})
-      : _notes = notes,
-        _contacts = contacts;
+  DashboardNotesPage({
+    @required List<Note> notes,
+    @required List<ContactMinimum> contacts,
+    @required String role,
+    Note selected,
+  })  : _notes = notes,
+        _contacts = contacts,
+        _selected = selected,
+        _role = role;
 
   final List<Note> _notes;
   final List<ContactMinimum> _contacts;
+  final Note _selected;
+  final String _role;
 
   @override
   _DashboardNotesPageState createState() => _DashboardNotesPageState();
@@ -21,6 +28,15 @@ class DashboardNotesPage extends StatefulWidget {
 
 class _DashboardNotesPageState extends State<DashboardNotesPage> {
   Note _currentNote;
+  var _noteController = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget._selected != null) {
+      //TODO: make note instanty displaied
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,32 +78,57 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
   }
 
   Expanded edit() => Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          child: Column(
-            children: [
-              widget._contacts.length > 0
-                  ? Row(
-                      children: [
-                        Text("psychologist: "),
-                        Container(
-                          child: ListView.builder(
-                            itemCount: widget._contacts.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                child: Text(
-                                  widget._contacts[index].psyName,
+        child: widget._role == "USR"
+            ? Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                child: Column(
+                  children: [
+                    widget._contacts.length > 0
+                        ? Row(
+                            children: [
+                              Text("psychologist: "),
+                              Container(
+                                child: ListView.builder(
+                                  itemCount: widget._contacts.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      child: Text(
+                                        widget._contacts[index].psyName,
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
+                                height: 40,
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                  "No psychologists to select.\nChanges won't be saved!"),
+                            ],
                           ),
-                          height: 40,
+                    SizedBox(height: 8),
+                    Expanded(
+                      child: TextField(
+                        controller: _noteController,
+                        style: TextStyle(fontSize: 13),
+                        minLines: 1,
+                        maxLines: 20,
+                        cursorColor: Theme.of(context).primaryColor,
+                        decoration: InputDecoration(
+                          hintText: "type here...",
+                          hintStyle: TextStyle(fontSize: 13),
+                          border: InputBorder.none,
                         ),
-                      ],
-                    )
-                  : Container(),
-            ],
-          ),
-        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Center(
+                child: Text("Choose note to display"),
+              ),
       );
 }
