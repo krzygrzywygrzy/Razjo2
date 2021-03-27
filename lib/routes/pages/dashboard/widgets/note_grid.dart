@@ -1,26 +1,19 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../../../../core/const.dart';
-import '../../../../core/erros/failures.dart';
 import '../../../../models/note.dart';
 import '../bloc/dashboard_bloc.dart';
-import '../../../../services/note_service.dart';
 import '../../../../widgets/note_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NoteGird extends StatelessWidget {
   const NoteGird({
     Key key,
-    @required NoteService noteService,
-    @required ObjectId objectId,
-  })  : _noteService = noteService,
-        _objectId = objectId,
+    @required List<Note> notes,
+  })  : _notes = notes,
         super(key: key);
 
-  final NoteService _noteService;
-  final ObjectId _objectId;
+  final List<Note> _notes;
 
   @override
   Widget build(BuildContext context) {
@@ -60,37 +53,30 @@ class NoteGird extends StatelessWidget {
           ///
           ///  Notes section
           ///
-          FutureBuilder(
-            future: _noteService.getNotes(_objectId),
-            builder: (BuildContext context,
-                AsyncSnapshot<Either<Failure, List<Note>>> snapshot) {
-              if (snapshot.hasData && snapshot.data.isRight()) {
-                List<Note> _notes = snapshot.data.getOrElse(() => <Note>[]);
-                return Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                  ),
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 10,
-                      crossAxisCount: _state is DashboardHome ? 3 : 2,
-                      mainAxisSpacing: 10,
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 15,
+                right: 15,
+              ),
+              child: _notes.length > 0
+                  ? GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 10,
+                        crossAxisCount: _state is DashboardHome ? 3 : 2,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: _notes.length,
+                      itemBuilder: (context, index) {
+                        return NoteCard(
+                          note: _notes[index],
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Text("No notes to display!"),
                     ),
-                    itemCount: _notes.length,
-                    itemBuilder: (context, index) {
-                      return NoteCard(
-                        note: _notes[index],
-                      );
-                    },
-                  ),
-                ));
-              } else
-                return Center(
-                  child: Text("loading..."),
-                );
-            },
+            ),
           ),
         ],
       ),

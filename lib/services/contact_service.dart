@@ -13,7 +13,7 @@ class ContactService {
 
   Db db = Db(MONGO);
   Future<Either<Failure, bool>> addContact(
-      ObjectId psychologist, ObjectId patient) async {
+      ObjectId psychologist, ObjectId patient, String psyName) async {
     try {
       final String contactCollection = "contact-${Uuid().v4()}";
       Contact contact = Contact(
@@ -22,6 +22,8 @@ class ContactService {
         notes: [],
         psyPrivate: [],
         appointments: [],
+        collection: contactCollection,
+        psyName: psyName,
       );
       await db.open();
       DbCollection coll = db.collection(contactCollection);

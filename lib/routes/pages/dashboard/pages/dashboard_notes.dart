@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import 'package:razjo/models/contact_minimum.dart';
 import 'package:razjo/models/note.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
-import 'package:razjo/widgets/outline_button.dart';
 import '../../../../core/const.dart';
 import '../widgets/note_grid.dart';
-import '../../../../services/note_service.dart';
 
 class DashboardNotesPage extends StatefulWidget {
-  DashboardNotesPage({@required mongo.ObjectId id}) : _id = id;
-  final mongo.ObjectId _id;
+  DashboardNotesPage(
+      {@required List<Note> notes, @required List<ContactMinimum> contacts})
+      : _notes = notes,
+        _contacts = contacts;
+
+  final List<Note> _notes;
+  final List<ContactMinimum> _contacts;
 
   @override
   _DashboardNotesPageState createState() => _DashboardNotesPageState();
@@ -21,7 +24,6 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
 
   @override
   Widget build(BuildContext context) {
-    NoteService _noteService = NoteService();
     return Container(
       child: Row(
         children: [
@@ -29,8 +31,7 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
             child: Container(
               decoration: BoxDecoration(border: kRightBorder),
               child: NoteGird(
-                noteService: _noteService,
-                objectId: widget._id,
+                notes: widget._notes,
               ),
             ),
           ),
@@ -39,10 +40,6 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
               children: [
                 SectionTopBar(
                   children: [
-                    Text(
-                      "Note",
-                      style: kSubtitle,
-                    ),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
@@ -53,7 +50,7 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
                       ),
                     ),
                   ],
-                  alignment: MainAxisAlignment.spaceBetween,
+                  alignment: MainAxisAlignment.end,
                 ),
                 edit(),
               ],
@@ -65,12 +62,32 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
   }
 
   Expanded edit() => Expanded(
-        child: _currentNote == null
-            ? Center(
-                child: MyOutlineButton(
-                  label: "Create new note",
-                ),
-              )
-            : Container(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          child: Column(
+            children: [
+              widget._contacts.length > 0
+                  ? Row(
+                      children: [
+                        Text("psychologist: "),
+                        Container(
+                          child: ListView.builder(
+                            itemCount: widget._contacts.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                child: Text(
+                                  widget._contacts[index].psyName,
+                                ),
+                              );
+                            },
+                          ),
+                          height: 40,
+                        ),
+                      ],
+                    )
+                  : Container(),
+            ],
+          ),
+        ),
       );
 }

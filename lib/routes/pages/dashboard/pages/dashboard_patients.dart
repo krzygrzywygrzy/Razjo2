@@ -274,12 +274,16 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                         accept: () async {
                           _contactService = ContactService();
                           var res = await _contactService.addContact(
-                              widget._user.role == "PSY"
-                                  ? widget._user.id
-                                  : list[index].id,
-                              widget._user.role == "PSY"
-                                  ? list[index].id
-                                  : widget._user.id);
+                            widget._user.role == "PSY"
+                                ? widget._user.id
+                                : list[index].id,
+                            widget._user.role == "PSY"
+                                ? list[index].id
+                                : widget._user.id,
+                            widget._user.role == "PSY"
+                                ? "${widget._user.name} ${widget._user.surname}"
+                                : "${list[index].name}",
+                          );
                           if (res.isRight()) {
                             _invitationService.deleteInvitation(
                                 list[index].id, widget._user.notifications);

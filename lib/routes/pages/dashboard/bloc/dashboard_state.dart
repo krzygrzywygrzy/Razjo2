@@ -15,8 +15,12 @@ class DashboardHome extends DashboardState {
 }
 
 class DashboardNotes extends DashboardState {
+  DashboardNotes({this.notes, this.contacts});
+  final List<Note> notes;
+  final List<ContactMinimum> contacts;
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [notes, contacts];
 }
 
 class DashboardAppointments extends DashboardState {

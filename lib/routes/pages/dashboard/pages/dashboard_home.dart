@@ -91,8 +91,8 @@ class DashboardHomePage extends StatelessWidget {
         Expanded(
           flex: 8,
           child: NoteGird(
-            noteService: _noteService,
-            objectId: _id,
+            //TODO: add notes from bloc
+            notes: [],
           ),
         ),
       ],
