@@ -30,6 +30,8 @@ class DashboardPatientsPage extends StatefulWidget {
 }
 
 //TODO: move some elements to separate file
+//TODO: change the label on buttow when invitation is sent
+//TODO: change the label when user is in contact
 
 class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   SearchService _searchService = SearchService();
@@ -38,6 +40,12 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   int _state = 0;
   User _selectedUser;
   var _phraseController = TextEditingController();
+
+  // @override
+  // void initState() {
+  //   print(widget._contacts);
+  //   super.initState();
+  // }
 
   Widget buildRightSection() {
     switch (_state) {
@@ -281,7 +289,7 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                                 : widget._user.id,
                             widget._user.role == "PSY"
                                 ? "${widget._user.name} ${widget._user.surname}"
-                                : "${list[index].name}",
+                                : "${list[index].surname}",
                           );
                           if (res.isRight()) {
                             _invitationService.deleteInvitation(

@@ -33,19 +33,21 @@ class AccountAcceptCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '${user.name} ${user.surname}',
-                style: kSubtitle,
-              ),
-              Text(
-                '${user.email}',
-              ),
-            ],
+          SizedBox(
+            width: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${user.name} ${user.surname}',
+                  style: kSubtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
-          SizedBox(width: 24),
+          SizedBox(width: 16),
           GestureDetector(
             onTap: accept,
             child: MouseRegion(

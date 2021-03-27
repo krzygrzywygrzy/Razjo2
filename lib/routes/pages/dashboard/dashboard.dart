@@ -20,6 +20,15 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   @override
+  void initState() {
+    // TODO: implement initState
+    print(widget.user.contacts);
+    context.read<DashboardBloc>().add(
+          LoadData(contacts: widget.user.contacts),
+        );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -102,9 +111,6 @@ class _DashboardState extends State<Dashboard> {
                 else if (state is DashboardSettings)
                   return DashboardSettingsPage();
                 else {
-                  context.read<DashboardBloc>().add(
-                        LoadData(contacts: widget.user.contacts),
-                      );
                   return Center(
                     child: Text("loading..."),
                   );

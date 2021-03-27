@@ -24,6 +24,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     if (event is LoadData) {
       yield DashboardLoading();
       _service = ContactService();
+      print(event.contacts);
       var res = await _service.getContacts(event.contacts);
       if (res.isRight()) {
         contacts = (res as Right).value;
@@ -49,12 +50,14 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     return list;
   }
 
+  //TODO: change for real data
   List<ContactMinimum> _getMinContacts() {
     List<ContactMinimum> list = [];
     if (contacts != null) {
       for (var contact in contacts) {
         list.add(
-          ContactMinimum(psyName: "Psychologist", collection: "123"),
+          ContactMinimum(
+              psyName: contact.psyName, collection: contact.collection),
         );
       }
     }

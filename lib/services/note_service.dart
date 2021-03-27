@@ -1,27 +1,33 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:razjo/core/const.dart';
+import 'package:razjo/core/erros/exceptions.dart';
 import '../core/erros/failures.dart';
 import '../models/note.dart';
 
 class NoteService {
-  /// Manages to get all notes signed to person
-  ///
-  ///
+  Db db = Db(MONGO);
 
-  Future<Either<Failure, List<Note>>> getNotes(ObjectId objectId) async {
-    List<Note> _fakeNotes = List.generate(
-      8,
-      (index) => Note(
-        id: index.toString(),
-        patientEntry:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dolor lacus, dapibus a vestibulum et, sollicitudin quis nunc.",
-        psychologistEntry: "",
-        name: "trikitirem",
-        date: DateTime(2021, 3, 8),
-        time: TimeOfDay(hour: 12, minute: 0),
-      ),
-    );
-    return Right(_fakeNotes);
+  //TODO: error handling
+  Future<Either<Failure, bool>> saveNote(
+      String role, String collection, Note note) async {
+    try {
+      await db.open();
+      var res = await db.collection(collection).update(
+          where.exists("collection"),
+          modify.push(
+            role == "PSY" ? "psyPrivate" : "notes",
+            note.toJson(),
+          ));
+      if (res["err"] == null)
+        return Right(true);
+      else
+        throw DbException();
+    } on SocketException {} on DbException {}
+  }
+
+  Future<Either<Failure, bool>> deleteNote() async {
+    throw UnimplementedError();
   }
 }

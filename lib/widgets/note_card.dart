@@ -32,7 +32,7 @@ class NoteCard extends StatelessWidget {
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Text(
-                _note.patientEntry,
+                _note.entry,
                 style: TextStyle(
                   fontSize: 12,
                 ),

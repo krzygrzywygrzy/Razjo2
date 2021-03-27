@@ -29,6 +29,7 @@ class DashboardNotesPage extends StatefulWidget {
 class _DashboardNotesPageState extends State<DashboardNotesPage> {
   Note _currentNote;
   var _noteController = TextEditingController();
+  int _selectedPsy = 0;
 
   @override
   void initState() {
@@ -81,25 +82,41 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
         child: widget._role == "USR"
             ? Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: Column(
                   children: [
                     widget._contacts.length > 0
                         ? Row(
                             children: [
                               Text("psychologist: "),
-                              Container(
-                                child: ListView.builder(
-                                  itemCount: widget._contacts.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      child: Text(
-                                        widget._contacts[index].psyName,
-                                      ),
-                                    );
-                                  },
+                              Expanded(
+                                child: Container(
+                                  height: 20,
+                                  child: ListView.builder(
+                                      itemCount: widget._contacts.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          child: MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: Text(
+                                              widget._contacts[index].psyName +
+                                                  " ",
+                                              style: TextStyle(
+                                                color: index == _selectedPsy
+                                                    ? Theme.of(context)
+                                                        .primaryColor
+                                                    : Colors.black,
+                                                fontWeight:
+                                                    index == _selectedPsy
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }),
                                 ),
-                                height: 40,
                               ),
                             ],
                           )
@@ -115,7 +132,7 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
                         controller: _noteController,
                         style: TextStyle(fontSize: 13),
                         minLines: 1,
-                        maxLines: 20,
+                        maxLines: 19,
                         cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           hintText: "type here...",
@@ -123,6 +140,20 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
                           border: InputBorder.none,
                         ),
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              //TODO: Send the note
+                            },
+                            child: Text("Send"),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

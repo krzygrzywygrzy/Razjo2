@@ -31,9 +31,9 @@ class ContactService {
       if (response["\$err"] == null) {
         UserService service = UserService();
         final psy = await service.editArray(
-            psychologist, "contatcts", contactCollection);
+            psychologist, "contacts", contactCollection);
         final usr =
-            await service.editArray(patient, "contatcts", contactCollection);
+            await service.editArray(patient, "contacts", contactCollection);
 
         if (psy.isRight() && usr.isRight()) {
           return Right(true);
