@@ -10,10 +10,13 @@ class NoteGird extends StatelessWidget {
   const NoteGird({
     Key key,
     @required List<Note> notes,
+    Function display,
   })  : _notes = notes,
+        _display = display,
         super(key: key);
 
   final List<Note> _notes;
+  final Function _display;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +73,7 @@ class NoteGird extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return NoteCard(
                           note: _notes[index],
+                          onTap: () => _display(index),
                         );
                       },
                     )

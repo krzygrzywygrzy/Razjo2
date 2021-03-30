@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
-//TODO: refractor date and time
+import 'package:mongo_dart/mongo_dart.dart';
 
 class Note extends Equatable {
   Note({
@@ -12,7 +11,7 @@ class Note extends Equatable {
     this.name,
   });
 
-  final String id;
+  final ObjectId id;
   final String entry;
   final String name;
   final DateTime date;
@@ -23,18 +22,27 @@ class Note extends Equatable {
       id: json["id"],
       entry: json["entry"],
       name: json["name"],
-      date: json["date"],
-      time: json["time"],
+      date: DateTime(
+        int.parse(json["year"]),
+        int.parse(json["month"]),
+        int.parse(json["day"]),
+      ),
+      time: TimeOfDay(
+        hour: int.parse(json["hour"]),
+        minute: int.parse(json["minute"]),
+      ),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
       "entry": entry,
       "name": name,
-      "date": date,
-      "time": time,
+      "year": date.year.toString(),
+      "month": date.month.toString(),
+      "day": date.day.toString(),
+      "hour": time.hour.toString(),
+      "minute": time.minute.toString(),
     };
   }
 

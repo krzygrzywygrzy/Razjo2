@@ -98,6 +98,7 @@ class _DashboardState extends State<Dashboard> {
                     role: widget.user.role,
                     contacts: state.contacts,
                     notes: state.notes,
+                    name: '${widget.user.name} ${widget.user.surname}',
                   );
                 else if (state is DashboardAppointments)
                   return Center(
