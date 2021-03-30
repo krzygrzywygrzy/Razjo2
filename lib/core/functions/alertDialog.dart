@@ -6,7 +6,12 @@ Future<void> showAlertDialog(context, String error) async {
     builder: (context) {
       return AlertDialog(
         title: Text("Error!"),
-        content: Text(error),
+        content: Text(
+          error,
+          style: TextStyle(
+            fontSize: 13,
+          ),
+        ),
       );
     },
   );
