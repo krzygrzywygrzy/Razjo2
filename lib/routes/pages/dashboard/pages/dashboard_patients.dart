@@ -41,12 +41,6 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
   User _selectedUser;
   var _phraseController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   print(widget._contacts);
-  //   super.initState();
-  // }
-
   Widget buildRightSection() {
     switch (_state) {
       case 1:
@@ -58,6 +52,13 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
         for (Contact contact in widget._contacts) {
           if (widget._user.role == "PSY") {
             if (contact.patientId == _selectedUser.id) {
+              inContact = true;
+              actualContact = contact;
+              break;
+            }
+          } else {
+            print(contact.psyId == _selectedUser.id);
+            if (contact.psyId == _selectedUser.id) {
               inContact = true;
               actualContact = contact;
               break;

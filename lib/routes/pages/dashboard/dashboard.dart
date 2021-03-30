@@ -21,8 +21,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
-    // TODO: implement initState
-    print(widget.user.contacts);
     context.read<DashboardBloc>().add(
           LoadData(contacts: widget.user.contacts),
         );

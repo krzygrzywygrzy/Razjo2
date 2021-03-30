@@ -8,6 +8,7 @@ import 'package:razjo/services/notification_service.dart';
 import 'package:razjo/widgets/icon_round_button.dart';
 import 'package:razjo/widgets/outline_button.dart';
 
+// ignore: must_be_immutable
 class PatientsInfo extends StatelessWidget {
   PatientsInfo({
     Key key,
@@ -29,13 +30,13 @@ class PatientsInfo extends StatelessWidget {
   InvitationService _service;
 
   Widget buildTable() {
+    print("building table....");
     //TODO: implement
     return Container();
   }
 
   Widget bottomSection() {
     if (_inContact) {
-      //TODO:
       return Column(
         children: [
           SectionTopBar(
@@ -58,7 +59,7 @@ class PatientsInfo extends StatelessWidget {
                     )
                   ],
                 )
-              : null,
+              : Container(),
           (_user.role == "PSY") && _contact.psyPrivate.length > 0
               ? buildTable()
               : message("You haven't saved anything yet!"),
@@ -69,7 +70,9 @@ class PatientsInfo extends StatelessWidget {
         return Text("Add this user to your contacts to see more options");
       else {
         return Text(
-          "${_selectedUser.description}",
+          _selectedUser.description != "" && _selectedUser.description != null
+              ? _selectedUser.description
+              : "Psychologist have not provided description yet!",
         );
       }
     }

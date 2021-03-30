@@ -109,6 +109,7 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
     );
   }
 
+  // ignore: missing_return
   Widget buildRightSection() {
     switch (_state) {
       case 1:

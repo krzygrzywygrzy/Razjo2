@@ -20,10 +20,10 @@ class NoteCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: kBottomBorder,
       ),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: _onTap,
+      child: GestureDetector(
+        onTap: _onTap,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
