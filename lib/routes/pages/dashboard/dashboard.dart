@@ -104,6 +104,7 @@ class _DashboardState extends State<Dashboard> {
                   return DashboardAppointmentsPage(
                     appointments: state.appointments,
                     contacts: state.contacts,
+                    role: widget.user.role,
                   );
                 else if (state is DashboardPatients)
                   return DashboardPatientsPage(

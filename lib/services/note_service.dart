@@ -20,11 +20,20 @@ class NoteService {
             role == "PSY" ? "psyPrivate" : "notes",
             note.toJson(),
           ));
-      if (res["err"] == null)
+      if (res["err"] == null) {
+        db.close();
         return Right(true);
-      else
+      } else
         throw DbException();
-    } on SocketException {} on DbException {}
+    } on SocketException {
+      db.close();
+      return Left(ConnectionFailure());
+    } on DbException {
+      db.close();
+      return Left(
+        DbFailure(message: "Cannot send note!"),
+      );
+    }
   }
 
   Future<Either<Failure, bool>> deleteNote() async {

@@ -5,7 +5,7 @@ const String MONGO = "mongodb://localhost:27017/razjo";
 
 const SIZE = Size(1035, 600);
 
-const kLightGray = Color(0xffdddddd);
+const kLightGray = Color(0xffc2c2c2);
 const kLightGrayAccent = Color(0xffcecece);
 const kDark = Color(0xff353535);
 
