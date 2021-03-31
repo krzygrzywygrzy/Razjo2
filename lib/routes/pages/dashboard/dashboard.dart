@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:razjo/routes/pages/dashboard/pages/dashboard_appointments.dart';
 import '../../../core/const.dart';
 import '../../../models/user.dart';
 import 'bloc/dashboard_bloc.dart';
@@ -21,6 +22,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
+    super.initState();
     context.read<DashboardBloc>().add(
           LoadData(contacts: widget.user.contacts),
         );
@@ -99,8 +101,9 @@ class _DashboardState extends State<Dashboard> {
                     name: '${widget.user.name} ${widget.user.surname}',
                   );
                 else if (state is DashboardAppointments)
-                  return Center(
-                    child: Text("Appointments"),
+                  return DashboardAppointmentsPage(
+                    appointments: state.appointments,
+                    contacts: state.contacts,
                   );
                 else if (state is DashboardPatients)
                   return DashboardPatientsPage(
