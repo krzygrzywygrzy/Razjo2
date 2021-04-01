@@ -1,13 +1,15 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:razjo/models/appointment.dart';
-import 'package:razjo/models/contact.dart';
-import 'package:razjo/models/contact_minimum.dart';
-import 'package:razjo/models/note.dart';
-import 'package:razjo/services/contact_service.dart';
+
+import '../../../../models/appointment.dart';
+import '../../../../models/contact.dart';
+import '../../../../models/contact_minimum.dart';
+import '../../../../models/note.dart';
+import '../../../../services/contact_service.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';

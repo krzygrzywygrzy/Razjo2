@@ -34,10 +34,15 @@ class AuthenticationService {
       if (data != null) {
         LoginData cacheData = LoginData(email: email, password: password);
         _localStorage.saveToLocal(cacheData.toJson());
+        db.close();
         return Right(User.fromJson(data));
       } else
         throw LogInException();
+    } on LogInException {
+      db.close();
+      return Left(LogInFailure());
     } catch (e) {
+      db.close();
       return Left(ConnectionFailure());
     }
   }
@@ -50,7 +55,6 @@ class AuthenticationService {
       var emailCheck = await collection.findOne({"email": user["email"]});
       if (emailCheck != null) throw EmailException();
 
-      //adding some nessesary fields
       String uuid = Uuid().v4();
       user["contacts"] = [];
       user["notifications"] = 'notifications-$uuid';
@@ -58,15 +62,19 @@ class AuthenticationService {
 
       var res = await collection.insert(user);
       if (res["err"] == null) {
+        db.close();
         return this.userLogin(user["email"], user["password"]);
       } else {
         throw SignUpException();
       }
     } on EmailException {
+      db.close();
       return Left(EmailFailure());
     } on SignUpException {
+      db.close();
       return Left(SignUpFailure());
     } catch (e) {
+      db.close();
       return Left(ConnectionFailure());
     }
   }

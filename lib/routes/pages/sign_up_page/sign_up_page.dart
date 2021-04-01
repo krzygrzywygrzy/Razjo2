@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../core/const.dart';
-import '../../bloc/navigation_bloc.dart';
-import '../../../widgets/form_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../core/const.dart';
+import '../../../widgets/form_input.dart';
+import '../../bloc/navigation_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
   @override

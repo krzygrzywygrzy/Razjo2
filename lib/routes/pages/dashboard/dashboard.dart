@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/pages/dashboard_appointments.dart';
+import 'pages/dashboard_appointments.dart';
 import '../../../core/const.dart';
 import '../../../models/user.dart';
 import 'bloc/dashboard_bloc.dart';

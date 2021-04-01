@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/const.dart';
 import '../../../../models/note.dart';
-import '../bloc/dashboard_bloc.dart';
 import '../../../../widgets/note_card.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/dashboard_bloc.dart';
 
 class NoteGird extends StatelessWidget {
   const NoteGird({

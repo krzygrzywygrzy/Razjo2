@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/models/appointment.dart';
+
+import 'appointment.dart';
 import 'note.dart';
 
 class Contact extends Equatable {

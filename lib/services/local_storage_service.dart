@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../core/erros/exceptions.dart';
 import '../core/erros/failures.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 const LOCAL_DATA_STRING = "LOCAL_USER";
 

@@ -1,7 +1,9 @@
 import 'dart:async';
+
+import 'package:mongo_dart/mongo_dart.dart';
+
 import '../core/const.dart';
 import '../models/user.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 
 class SearchService {
   Db db = Db(MONGO);

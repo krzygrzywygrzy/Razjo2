@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
+
 import '../core/const.dart';
 import '../core/functions/time_format.dart';
 import '../models/note.dart';

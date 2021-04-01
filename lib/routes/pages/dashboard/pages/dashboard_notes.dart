@@ -1,18 +1,19 @@
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:intl/intl.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/core/functions/alertDialog.dart';
-import 'package:razjo/core/functions/time_format.dart';
-import 'package:razjo/models/contact_minimum.dart';
-import 'package:razjo/models/note.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
-import 'package:razjo/services/note_service.dart';
-import '../../../../core/const.dart';
-import '../widgets/note_grid.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../core/const.dart';
+import '../../../../core/erros/failures.dart';
+import '../../../../core/functions/alertDialog.dart';
+import '../../../../core/functions/time_format.dart';
+import '../../../../models/contact_minimum.dart';
+import '../../../../models/note.dart';
+import '../../../../services/note_service.dart';
+import '../bloc/dashboard_bloc.dart';
+import '../widgets/note_grid.dart';
+import '../widgets/section_top_bar.dart';
 
 //TODO: move some things to another file
 

@@ -2,12 +2,12 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:dartz/dartz.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/erros/exceptions.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/invitation.dart';
-import 'package:razjo/models/user.dart';
-import 'package:razjo/services/user_service.dart';
+import '../core/const.dart';
+import '../core/erros/exceptions.dart';
+import '../core/erros/failures.dart';
+import '../models/invitation.dart';
+import '../models/user.dart';
+import 'user_service.dart';
 
 class InvitationService {
   /// Manages everything connected to sending, deleting, and geting list of invitations

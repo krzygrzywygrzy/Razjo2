@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../bloc/navigation_bloc.dart';
-import '../../../widgets/form_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../widgets/form_input.dart';
+import '../../bloc/navigation_bloc.dart';
 
 // ignore: must_be_immutable
 class LogInPage extends StatelessWidget {

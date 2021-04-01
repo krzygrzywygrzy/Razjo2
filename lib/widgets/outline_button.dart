@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:razjo/core/const.dart';
+
+import '../core/const.dart';
 
 class MyOutlineButton extends StatelessWidget {
   MyOutlineButton({

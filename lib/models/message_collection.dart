@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
-import './message.dart';
+import 'message.dart';
 
 class MessageCollection extends Equatable {
   MessageCollection({

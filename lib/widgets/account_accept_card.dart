@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/models/user.dart';
+
+import '../core/const.dart';
+import '../models/user.dart';
 
 class AccountAcceptCard extends StatelessWidget {
   const AccountAcceptCard({

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:intl/intl.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/functions/alertDialog.dart';
-import 'package:razjo/core/functions/time_format.dart';
-import 'package:razjo/core/functions/time_picker.dart';
-import 'package:razjo/models/appointment.dart';
-import 'package:razjo/models/contact_minimum.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
-import 'package:razjo/services/appointment_service.dart';
-import 'package:razjo/widgets/appointment_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../core/const.dart';
+import '../../../../core/functions/alertDialog.dart';
+import '../../../../core/functions/time_format.dart';
+import '../../../../core/functions/time_picker.dart';
+import '../../../../models/appointment.dart';
+import '../../../../models/contact_minimum.dart';
+import '../../../../services/appointment_service.dart';
+import '../../../../widgets/appointment_card.dart';
+import '../bloc/dashboard_bloc.dart';
+import '../widgets/section_top_bar.dart';
 
 class DashboardAppointmentsPage extends StatefulWidget {
   final List<Appointment> _appointments;

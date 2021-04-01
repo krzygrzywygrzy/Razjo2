@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/erros/exceptions.dart';
+
+import '../core/const.dart';
+import '../core/erros/exceptions.dart';
 import '../core/erros/failures.dart';
 import '../models/appointment.dart';
 

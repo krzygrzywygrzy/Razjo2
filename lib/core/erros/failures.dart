@@ -39,3 +39,10 @@ class DbFailure implements Failure {
   @override
   bool get stringify => null;
 }
+
+class LogInFailure implements Failure {
+  @override
+  List<Object> get props => [];
+  @override
+  bool get stringify => null;
+}

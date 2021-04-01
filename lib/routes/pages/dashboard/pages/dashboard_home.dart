@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:razjo/models/appointment.dart';
-import 'package:razjo/models/note.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
-import 'package:razjo/widgets/appointment_card.dart';
-import '../../../../core/const.dart';
-import '../widgets/note_grid.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/const.dart';
+import '../../../../models/appointment.dart';
+import '../../../../models/note.dart';
+import '../../../../widgets/appointment_card.dart';
+import '../bloc/dashboard_bloc.dart';
+import '../widgets/note_grid.dart';
 
 // ignore: must_be_immutable
 class DashboardHomePage extends StatelessWidget {

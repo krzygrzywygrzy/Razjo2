@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/models/contact.dart';
-import 'package:razjo/models/invitation.dart' as model;
-import 'package:razjo/models/user.dart';
-import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
-import 'package:razjo/services/notification_service.dart';
-import 'package:razjo/widgets/icon_round_button.dart';
-import 'package:razjo/widgets/outline_button.dart';
+
+import '../../../../core/const.dart';
+import '../../../../models/contact.dart';
+import '../../../../models/invitation.dart' as model;
+import '../../../../models/user.dart';
+import '../../../../services/notification_service.dart';
+import '../../../../widgets/icon_round_button.dart';
+import '../../../../widgets/outline_button.dart';
 
 // ignore: must_be_immutable
 class PatientsInfo extends StatelessWidget {

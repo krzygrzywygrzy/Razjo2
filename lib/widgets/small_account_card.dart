@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 import '../core/const.dart';
 
 class SmallAccountCard extends StatelessWidget {

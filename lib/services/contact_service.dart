@@ -1,12 +1,14 @@
 import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:razjo/core/const.dart';
-import 'package:razjo/core/erros/exceptions.dart';
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/contact.dart';
-import 'package:razjo/services/user_service.dart';
 import 'package:uuid/uuid.dart';
+
+import '../core/const.dart';
+import '../core/erros/exceptions.dart';
+import '../core/erros/failures.dart';
+import '../models/contact.dart';
+import 'user_service.dart';
 
 class ContactService {
   ///Manages to add, delete and read data from "contacts"
@@ -36,14 +38,17 @@ class ContactService {
             await service.editArray(patient, "contacts", contactCollection);
 
         if (psy.isRight() && usr.isRight()) {
+          db.close();
           return Right(true);
         } else
           throw DbException();
       } else
         throw DbException();
     } on DbException {
+      db.close();
       return Left(DbFailure(message: "cannot add to contacts"));
     } on SocketException {
+      db.close();
       return Left(ConnectionFailure());
     }
   }

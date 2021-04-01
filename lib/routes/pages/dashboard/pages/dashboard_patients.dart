@@ -1,21 +1,22 @@
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mongo_dart/mongo_dart.dart' as mongo;
-import 'package:razjo/core/erros/failures.dart';
-import 'package:razjo/models/contact.dart';
-import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
-import 'package:razjo/routes/pages/dashboard/widgets/patients_search_display.dart';
-import 'package:razjo/services/contact_service.dart';
-import 'package:razjo/services/notification_service.dart';
-import 'package:razjo/services/user_service.dart';
-import 'package:razjo/widgets/account_accept_card.dart';
-import '../../../../core/const.dart';
-import '../../../../models/user.dart';
-import '../widgets/section_top_bar.dart';
-import '../../../../services/search_service.dart';
-import '../../../../widgets/small_account_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mongo_dart/mongo_dart.dart' as mongo;
+
+import '../../../../core/const.dart';
+import '../../../../core/erros/failures.dart';
+import '../../../../models/contact.dart';
+import '../../../../models/user.dart';
+import '../../../../services/contact_service.dart';
+import '../../../../services/notification_service.dart';
+import '../../../../services/search_service.dart';
+import '../../../../services/user_service.dart';
+import '../../../../widgets/account_accept_card.dart';
+import '../../../../widgets/small_account_card.dart';
+import '../bloc/dashboard_bloc.dart';
+import '../widgets/patients_search_display.dart';
+import '../widgets/section_top_bar.dart';
 
 class DashboardPatientsPage extends StatefulWidget {
   DashboardPatientsPage({
