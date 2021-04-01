@@ -17,6 +17,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   List<Contact> contacts = [];
   ContactService _service;
+  List<String> sContacts = [];
 
   @override
   Stream<DashboardState> mapEventToState(
@@ -24,17 +25,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async* {
     if (event is LoadData) {
       yield DashboardLoading();
+      sContacts = event.contacts;
       _service = ContactService();
-      print(event.contacts);
       var res = await _service.getContacts(event.contacts);
       if (res.isRight()) {
         contacts = (res as Right).value;
-        yield DashboardHome();
+        yield DashboardHome(_getNotes(), _getAppointments());
       } else {
         //TODO: handle error
       }
     }
-    if (event is GoToHome) yield DashboardHome();
+    if (event is GoToHome) yield DashboardHome(_getNotes(), _getAppointments());
     if (event is GoToNotes)
       yield DashboardNotes(notes: _getNotes(), contacts: _getMinContacts());
     if (event is GoToAppointments)
@@ -42,6 +43,16 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           appointments: _getAppointments(), contacts: _getMinContacts());
     if (event is GoToPatients) yield DashboardPatients(contacts: contacts);
     if (event is GoToSettings) yield DashboardSettings();
+
+    if (event is ReloadData) {
+      _service = ContactService();
+      var res = await _service.getContacts(sContacts);
+      if (res.isRight()) {
+        contacts = (res as Right).value;
+      } else {
+        yield DashboardError();
+      }
+    }
   }
 
   List<Note> _getNotes() {

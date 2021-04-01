@@ -10,8 +10,12 @@ class DashboardInitial extends DashboardState {
 }
 
 class DashboardHome extends DashboardState {
+  final List<Note> notes;
+  final List<Appointment> appointments;
+
+  DashboardHome(this.notes, this.appointments);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [notes, appointments];
 }
 
 class DashboardNotes extends DashboardState {
@@ -53,6 +57,11 @@ class DashboardSettings extends DashboardState {
 }
 
 class DashboardLoading extends DashboardState {
+  @override
+  List<Object> get props => [];
+}
+
+class DashboardError extends DashboardState {
   @override
   List<Object> get props => [];
 }

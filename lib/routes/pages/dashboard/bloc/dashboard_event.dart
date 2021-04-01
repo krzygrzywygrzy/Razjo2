@@ -35,3 +35,8 @@ class GoToSettings extends DashboardEvent {
   @override
   List<Object> get props => [];
 }
+
+class ReloadData extends DashboardEvent {
+  @override
+  List<Object> get props => [];
+}

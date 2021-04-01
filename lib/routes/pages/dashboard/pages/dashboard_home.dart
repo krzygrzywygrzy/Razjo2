@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mongo_dart/mongo_dart.dart';
+import 'package:razjo/models/appointment.dart';
+import 'package:razjo/models/note.dart';
+import 'package:razjo/widgets/appointment_card.dart';
 import '../../../../core/const.dart';
 import '../widgets/note_grid.dart';
 
 // ignore: must_be_immutable
 class DashboardHomePage extends StatelessWidget {
-  DashboardHomePage({@required ObjectId id}) : _id = id;
-  final ObjectId _id;
+  final List<Appointment> appointments;
+  final List<Note> notes;
+
+  const DashboardHomePage(
+      {Key key, @required this.appointments, @required this.notes})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +54,25 @@ class DashboardHomePage extends StatelessWidget {
                 ///
                 /// List of appointments
                 ///
+                Expanded(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                    child: Container(
+                      child: appointments.length > 0
+                          ? ListView.builder(
+                              itemCount: appointments.length,
+                              itemBuilder: (context, index) {
+                                return AppointmentCard(
+                                    appointment: appointments[index], role: "");
+                              },
+                            )
+                          : Center(
+                              child: Text("Nothing here yet!"),
+                            ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -55,8 +80,7 @@ class DashboardHomePage extends StatelessWidget {
         Expanded(
           flex: 8,
           child: NoteGird(
-            //TODO: add notes from bloc
-            notes: [],
+            notes: notes,
           ),
         ),
       ],

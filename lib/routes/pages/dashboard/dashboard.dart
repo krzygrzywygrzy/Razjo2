@@ -91,7 +91,8 @@ class _DashboardState extends State<Dashboard> {
                   builder: (context, state) {
                 if (state is DashboardHome)
                   return DashboardHomePage(
-                    id: widget.user.id,
+                    appointments: state.appointments,
+                    notes: state.notes,
                   );
                 else if (state is DashboardNotes)
                   return DashboardNotesPage(

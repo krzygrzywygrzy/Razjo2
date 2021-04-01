@@ -14,7 +14,7 @@ class Appointment extends Equatable {
     return Appointment(
       id: json['id'].toString(),
       name: json['name'],
-      psyName: json['surname'],
+      psyName: json['psyName'],
       date: DateTime(
         int.parse(json["year"]),
         int.parse(json["month"]),

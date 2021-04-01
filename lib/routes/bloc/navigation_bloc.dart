@@ -17,9 +17,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   Stream<NavigationState> mapEventToState(
     NavigationEvent event,
   ) async* {
-    // redirecting to log in screen or dashboard according to data existance
     if (event is CheckAuthentication) {
-      //TODO: check for data in shared preferences
       if (_user.id == null)
         yield NavigationLogIn();
       else

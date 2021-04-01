@@ -14,7 +14,6 @@ class DashboardAppointmentsPage extends StatefulWidget {
   final List<Appointment> _appointments;
   final List<ContactMinimum> _contacts;
   final String _role;
-  final String _name;
 
   const DashboardAppointmentsPage({
     Key key,
@@ -25,7 +24,6 @@ class DashboardAppointmentsPage extends StatefulWidget {
   })  : _appointments = appointments,
         _contacts = contacts,
         _role = role,
-        _name = name,
         super(key: key);
 
   @override
@@ -63,11 +61,19 @@ class _DashboardAppointmentsPageState extends State<DashboardAppointmentsPage> {
                     ),
                     child: Container(
                       child: widget._appointments.length > 0
-                          ? ListView.builder(
+                          ? GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisSpacing: 10,
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 3 / 0.9,
+                              ),
                               itemCount: widget._appointments.length,
                               itemBuilder: (context, index) {
                                 return AppointmentCard(
                                   appointment: widget._appointments[index],
+                                  role: widget._role,
                                 );
                               },
                             )
@@ -192,10 +198,12 @@ class _DashboardAppointmentsPageState extends State<DashboardAppointmentsPage> {
                         onTap: () async {
                           if (_date != null && _time != null) {
                             AppointmentService _service = AppointmentService();
+                            print(widget._contacts[_selected].name);
+                            print(widget._contacts[_selected].psyName);
                             _service.addAppointment(
-                                //TODO: add names and surnames to appointment
                                 Appointment(
-                                  name: widget._role == "PSY" ? "" : "",
+                                  name: widget._contacts[_selected].name,
+                                  psyName: widget._contacts[_selected].psyName,
                                   date: _date,
                                   time: _time,
                                 ),

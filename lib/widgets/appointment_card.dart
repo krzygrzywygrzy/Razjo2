@@ -6,9 +6,11 @@ import '../core/functions/time_format.dart';
 import '../models/appointment.dart';
 
 class AppointmentCard extends StatelessWidget {
-  AppointmentCard({@required Appointment appointment})
-      : _appointment = appointment;
+  AppointmentCard({@required Appointment appointment, @required String role})
+      : _appointment = appointment,
+        _role = role;
   final Appointment _appointment;
+  final String _role;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,9 @@ class AppointmentCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${_appointment.name}",
+              _role == "PSY"
+                  ? "${_appointment.name}"
+                  : "${_appointment.psyName}",
               style: TextStyle(
                 color: kDark,
                 fontWeight: FontWeight.w700,
