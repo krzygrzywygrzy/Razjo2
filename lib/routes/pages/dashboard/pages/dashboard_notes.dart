@@ -7,10 +7,12 @@ import 'package:razjo/core/functions/alertDialog.dart';
 import 'package:razjo/core/functions/time_format.dart';
 import 'package:razjo/models/contact_minimum.dart';
 import 'package:razjo/models/note.dart';
+import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
 import 'package:razjo/services/note_service.dart';
 import '../../../../core/const.dart';
 import '../widgets/note_grid.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 //TODO: move some things to another file
 
@@ -227,6 +229,7 @@ class _DashboardNotesPageState extends State<DashboardNotesPage> {
                     onTap: () async {
                       var res = await _saveNote();
                       if (res.isRight()) {
+                        context.read<DashboardBloc>().add(ReloadData());
                         setState(() {
                           _state = 0;
                           _noteController.clear();

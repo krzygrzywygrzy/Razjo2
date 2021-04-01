@@ -29,53 +29,11 @@ class PatientsInfo extends StatelessWidget {
 
   InvitationService _service;
 
-  Widget buildTable() {
-    print("building table....");
-    //TODO: implement
-    return Container();
-  }
-
-  Widget bottomSection() {
-    if (_inContact) {
-      return Column(
-        children: [
-          SectionTopBar(
-            children: [
-              Text(
-                "Notes",
-                style: kSubtitle,
-              ),
-            ],
-          ),
-          _contact.notes.length > 0
-              ? buildTable()
-              : message("There is nothing here yet!"),
-          _user.role == "PSY"
-              ? SectionTopBar(
-                  children: [
-                    Text(
-                      "Your private notes",
-                      style: kSubtitle,
-                    )
-                  ],
-                )
-              : Container(),
-          (_user.role == "PSY") && _contact.psyPrivate.length > 0
-              ? buildTable()
-              : message("You haven't saved anything yet!"),
-        ],
-      );
-    } else {
-      if (_user.role == "PSY")
-        return Text("Add this user to your contacts to see more options");
-      else {
-        return Text(
-          _selectedUser.description != "" && _selectedUser.description != null
-              ? _selectedUser.description
-              : "Psychologist have not provided description yet!",
-        );
-      }
-    }
+  Widget buildDescription() {
+    return Text(
+        _selectedUser.description != "" && _selectedUser.description != null
+            ? _selectedUser.description
+            : "Psychologist have not provided descrioption yet!");
   }
 
   Widget message(String text) {
@@ -159,7 +117,7 @@ class PatientsInfo extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
-                bottomSection(),
+                _user.role != "PSY" ? buildDescription() : Container(),
               ],
             ),
           ),

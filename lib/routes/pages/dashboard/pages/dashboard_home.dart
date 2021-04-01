@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:razjo/models/appointment.dart';
 import 'package:razjo/models/note.dart';
+import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/widgets/appointment_card.dart';
 import '../../../../core/const.dart';
 import '../widgets/note_grid.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class DashboardHomePage extends StatelessWidget {
@@ -81,6 +83,9 @@ class DashboardHomePage extends StatelessWidget {
           flex: 8,
           child: NoteGird(
             notes: notes,
+            display: (index) {
+              context.read<DashboardBloc>().add(GoToNotes(note: notes[index]));
+            },
           ),
         ),
       ],

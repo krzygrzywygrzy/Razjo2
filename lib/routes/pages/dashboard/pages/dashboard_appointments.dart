@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:razjo/core/const.dart';
+import 'package:razjo/core/functions/alertDialog.dart';
 import 'package:razjo/core/functions/time_format.dart';
 import 'package:razjo/core/functions/time_picker.dart';
 import 'package:razjo/models/appointment.dart';
 import 'package:razjo/models/contact_minimum.dart';
+import 'package:razjo/routes/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
 import 'package:razjo/services/appointment_service.dart';
 import 'package:razjo/widgets/appointment_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardAppointmentsPage extends StatefulWidget {
   final List<Appointment> _appointments;
@@ -200,7 +203,7 @@ class _DashboardAppointmentsPageState extends State<DashboardAppointmentsPage> {
                             AppointmentService _service = AppointmentService();
                             print(widget._contacts[_selected].name);
                             print(widget._contacts[_selected].psyName);
-                            _service.addAppointment(
+                            var res = await _service.addAppointment(
                                 Appointment(
                                   name: widget._contacts[_selected].name,
                                   psyName: widget._contacts[_selected].psyName,
@@ -208,6 +211,12 @@ class _DashboardAppointmentsPageState extends State<DashboardAppointmentsPage> {
                                   time: _time,
                                 ),
                                 widget._contacts[_selected].collection);
+                            if (res.isRight()) {
+                              context.read<DashboardBloc>().add(ReloadData());
+                            } else {
+                              showAlertDialog(
+                                  context, "Cannot shedule appointment!");
+                            }
                           }
                         },
                         child: MouseRegion(

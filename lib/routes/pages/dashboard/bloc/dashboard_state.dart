@@ -19,12 +19,10 @@ class DashboardHome extends DashboardState {
 }
 
 class DashboardNotes extends DashboardState {
-  DashboardNotes({
-    this.notes,
-    this.contacts,
-  });
+  DashboardNotes({this.notes, this.contacts, this.selected});
   final List<Note> notes;
   final List<ContactMinimum> contacts;
+  final Note selected;
 
   @override
   List<Object> get props => [notes, contacts];

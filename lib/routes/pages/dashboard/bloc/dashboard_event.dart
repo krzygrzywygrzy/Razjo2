@@ -17,8 +17,12 @@ class GoToHome extends DashboardEvent {
 }
 
 class GoToNotes extends DashboardEvent {
+  final Note note;
+
+  GoToNotes({this.note});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [note];
 }
 
 class GoToAppointments extends DashboardEvent {

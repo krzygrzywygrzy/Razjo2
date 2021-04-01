@@ -37,7 +37,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     }
     if (event is GoToHome) yield DashboardHome(_getNotes(), _getAppointments());
     if (event is GoToNotes)
-      yield DashboardNotes(notes: _getNotes(), contacts: _getMinContacts());
+      yield DashboardNotes(
+          notes: _getNotes(),
+          contacts: _getMinContacts(),
+          selected: event.note);
     if (event is GoToAppointments)
       yield DashboardAppointments(
           appointments: _getAppointments(), contacts: _getMinContacts());

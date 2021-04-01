@@ -100,6 +100,7 @@ class _DashboardState extends State<Dashboard> {
                     contacts: state.contacts,
                     notes: state.notes,
                     name: '${widget.user.name} ${widget.user.surname}',
+                    selected: state.selected,
                   );
                 else if (state is DashboardAppointments)
                   return DashboardAppointmentsPage(
