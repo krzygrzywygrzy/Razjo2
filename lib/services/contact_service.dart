@@ -11,7 +11,10 @@ import '../models/contact.dart';
 import 'user_service.dart';
 
 class ContactService {
-  ///Manages to add, delete and read data from "contacts"
+  ///Manages to add, delete and read data from "contacts" list
+  /// [addContact] adds contacts to contacts list
+  /// [getContacts] gets list of contacts
+  /// [removeContact] removes contact (not fully implemented yet!)
 
   Db db = Db(MONGO);
   Future<Either<Failure, bool>> addContact(ObjectId psychologist,
@@ -73,7 +76,6 @@ class ContactService {
     }
   }
 
-  //TODO: error handling
   Future<Either<Failure, bool>> removeContact(
       String coll, List<ObjectId> users) async {
     try {
@@ -84,6 +86,11 @@ class ContactService {
             .findOne(where.id(id).fields(["contacts"]));
         print(res);
       }
-    } on DbException {} on SocketException {}
+    } on DbException {
+      db.close();
+      return Left(DbFailure(message: "cannot remove contact"));
+    } on SocketException {
+      return Left(ConnectionFailure());
+    }
   }
 }

@@ -9,6 +9,10 @@ import '../core/erros/failures.dart';
 import '../models/appointment.dart';
 
 class AppointmentService {
+  ///Manages everything related to appointments
+  /// [addAppointment] mangages to add the appointment to the appointment list
+  /// [removeAppointment] manages to remove appointment
+
   Db db = Db(MONGO);
 
   Future<Either<Failure, bool>> addAppointment(
@@ -36,5 +40,9 @@ class AppointmentService {
         DbFailure(message: "Cannot send invitation!"),
       );
     }
+  }
+
+  Future<Either<Failure, bool>> removeAppointment() async {
+    throw UnimplementedError();
   }
 }

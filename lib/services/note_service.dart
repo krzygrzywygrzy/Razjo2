@@ -9,9 +9,12 @@ import '../core/erros/failures.dart';
 import '../models/note.dart';
 
 class NoteService {
+  /// Manages everything related to notes correspondence
+  /// [saveNote] manages saving note to notes list
+  /// [deleteNote] manges deleting note
+
   Db db = Db(MONGO);
 
-  //TODO: error handling
   Future<Either<Failure, bool>> saveNote(
       String role, String collection, Note note) async {
     try {

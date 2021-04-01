@@ -16,7 +16,6 @@ class InvitationService {
   /// method [deleteInvitation] deletes invitation by [ObjectId]
 
   Db db = Db(MONGO);
-  //TODO: handle errors
 
   Future<void> sendInviataion(String collection, Invitation invitation) async {
     try {
@@ -40,12 +39,16 @@ class InvitationService {
         if (data.isRight()) {
           final User user = data.getOrElse(() => User());
           invitations.add(user);
-        } else {}
+        } else {
+          throw DbException();
+        }
       });
       return Right(invitations);
     } on SocketException {
+      db.close();
       return Left(ConnectionFailure());
     } on DbException {
+      db.close();
       return Left(
         DbFailure(message: "error getting invitations"),
       );
@@ -53,11 +56,12 @@ class InvitationService {
   }
 
   Future<void> deleteInvitation(ObjectId id, String collection) async {
-    //TODO: handle exceptions
     try {
       await db.open();
       DbCollection coll = db.collection(collection);
       coll.remove(where.eq("from", id));
-    } on SocketException {} on DbException {}
+    } on SocketException {
+      db.close();
+    }
   }
 }

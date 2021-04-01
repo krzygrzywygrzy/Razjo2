@@ -19,13 +19,11 @@ class PatientsInfo extends StatelessWidget {
   })  : _selectedUser = selectedUser,
         _user = user,
         _inContact = inContact,
-        _contact = contact,
         super(key: key);
 
   final User _selectedUser;
   final User _user;
   final bool _inContact;
-  final Contact _contact;
 
   InvitationService _service;
 

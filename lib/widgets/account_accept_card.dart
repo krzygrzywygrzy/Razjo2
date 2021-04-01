@@ -5,6 +5,8 @@ import '../core/const.dart';
 import '../models/user.dart';
 
 class AccountAcceptCard extends StatelessWidget {
+  /// Card that allows to accept [Invitaion] or dismiss it
+
   const AccountAcceptCard({
     Key key,
     @required this.user,

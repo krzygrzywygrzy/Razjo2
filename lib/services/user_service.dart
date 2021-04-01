@@ -9,6 +9,11 @@ import '../core/erros/failures.dart';
 import '../models/user.dart';
 
 class UserService {
+  /// Manages everything related to users
+  /// [getUser] manages to get user form MongoDB by [ObjectId]
+  /// [editArray] manages to edit fields that are arrays in database
+  /// [getUsers] manages to get list of users using [getUser] frunction
+
   Db db = Db(MONGO);
 
   Future<Either<Failure, User>> getUser(ObjectId id) async {
@@ -32,24 +37,23 @@ class UserService {
       ObjectId user, String field, String entry) async {
     try {
       await db.open();
-      //throw UnimplementedError();
       var response = await db.collection("users").update(
             where.id(user),
             modify.push(field, entry),
           );
-
       if (response["err"] == null) {
         return Right(true);
       } else
         throw DbException();
     } on DbException {
+      db.close();
       return Left(DbFailure(message: "cannot edit array"));
     } on SocketException {
+      db.close();
       return Left(ConnectionFailure());
     }
   }
 
-  //TODO: error handling
   Future<Either<Failure, List<User>>> getUsers(List<ObjectId> ids) async {
     List<User> list = [];
     try {
@@ -65,6 +69,12 @@ class UserService {
         }
       }
       return Right(list);
-    } on DbException {} on SocketException {}
+    } on DbException {
+      db.close();
+      return Left(DbFailure(message: "Cannot get users"));
+    } on SocketException {
+      db.close();
+      return Left(ConnectionFailure());
+    }
   }
 }
