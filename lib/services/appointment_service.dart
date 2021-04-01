@@ -8,30 +8,8 @@ import 'package:razjo/core/erros/exceptions.dart';
 import '../core/erros/failures.dart';
 import '../models/appointment.dart';
 
-List<Appointment> _fakeAppointments = [
-  Appointment(
-    name: "Michał",
-    surname: "Bednarz",
-    id: "12",
-    date: DateTime(2021, 5, 12),
-    time: TimeOfDay(hour: 12, minute: 0),
-  ),
-  Appointment(
-    name: "Zenon",
-    surname: "Drabiniarz",
-    id: "13",
-    date: DateTime(2021, 5, 12),
-    time: TimeOfDay(hour: 12, minute: 5),
-  ),
-];
-
 class AppointmentService {
   Db db = Db(MONGO);
-
-  //TODO: implement http request when api is implemented
-  Future<Either<Failure, List<Appointment>>> getAppointments() async {
-    return Right(_fakeAppointments);
-  }
 
   Future<Either<Failure, bool>> addAppointment(
       Appointment appointment, String collection) async {

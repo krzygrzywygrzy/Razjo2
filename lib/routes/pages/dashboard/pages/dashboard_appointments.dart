@@ -14,15 +14,18 @@ class DashboardAppointmentsPage extends StatefulWidget {
   final List<Appointment> _appointments;
   final List<ContactMinimum> _contacts;
   final String _role;
+  final String _name;
 
   const DashboardAppointmentsPage({
     Key key,
     @required List<Appointment> appointments,
     @required List<ContactMinimum> contacts,
     @required String role,
+    @required String name,
   })  : _appointments = appointments,
         _contacts = contacts,
         _role = role,
+        _name = name,
         super(key: key);
 
   @override
@@ -192,6 +195,7 @@ class _DashboardAppointmentsPageState extends State<DashboardAppointmentsPage> {
                             _service.addAppointment(
                                 //TODO: add names and surnames to appointment
                                 Appointment(
+                                  name: widget._role == "PSY" ? "" : "",
                                   date: _date,
                                   time: _time,
                                 ),

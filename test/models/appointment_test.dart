@@ -6,7 +6,7 @@ import 'package:razjo/models/appointment.dart';
 void main() {
   final tAppointment = Appointment(
     name: "Oli",
-    surname: "Sykes",
+    psyName: "Sykes",
     id: "1",
     date: DateTime(2020, 5, 12),
     time: TimeOfDay(hour: 12, minute: 0),
@@ -15,7 +15,7 @@ void main() {
   test("Should return valid Appointment model when Json is provided", () {
     //arrange
     var json =
-        '{"name": "Oli", "surname": "Sykes", "id": "1", "year": "2020", "month": "5", "day": "12", "hour": "12", "minute": "0"}';
+        '{"name": "Oli", "psyName": "Sykes", "id": "1", "year": "2020", "month": "5", "day": "12", "hour": "12", "minute": "0"}';
     final Map<String, dynamic> jsonMap = jsonDecode(json);
     //act
     final result = Appointment.formJson(jsonMap);
@@ -31,7 +31,7 @@ void main() {
     final expectedMap = {
       "id": "1",
       "name": "Oli",
-      "surname": "Sykes",
+      "psyName": "Sykes",
       "year": "2020",
       "month": "5",
       "day": "12",

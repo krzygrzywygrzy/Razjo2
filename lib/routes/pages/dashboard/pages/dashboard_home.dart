@@ -1,22 +1,13 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import '../../../../core/const.dart';
-import '../../../../core/erros/failures.dart';
-import '../../../../models/appointment.dart';
 import '../widgets/note_grid.dart';
-import '../../../../services/appointment_service.dart';
-import '../../../../services/note_service.dart';
-import '../../../../widgets/appointment_card.dart';
 
 // ignore: must_be_immutable
 class DashboardHomePage extends StatelessWidget {
   DashboardHomePage({@required ObjectId id}) : _id = id;
   final ObjectId _id;
-
-  AppointmentService _appointmentService = AppointmentService();
-  NoteService _noteService = NoteService();
 
   @override
   Widget build(BuildContext context) {
@@ -57,33 +48,6 @@ class DashboardHomePage extends StatelessWidget {
                 ///
                 /// List of appointments
                 ///
-                FutureBuilder(
-                  future: _appointmentService.getAppointments(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<Either<Failure, List<Appointment>>>
-                          snapshot) {
-                    if (snapshot.hasData && snapshot.data.isRight()) {
-                      List<Appointment> _list =
-                          snapshot.data.getOrElse(() => <Appointment>[]);
-                      return Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 15, right: 15, bottom: 10),
-                          child: Container(
-                            child: ListView.builder(
-                              itemCount: _list.length,
-                              itemBuilder: (context, index) {
-                                return AppointmentCard(
-                                    appointment: _list[index]);
-                              },
-                            ),
-                          ),
-                        ),
-                      );
-                    } else
-                      return Text("Loading");
-                  },
-                ),
               ],
             ),
           ),

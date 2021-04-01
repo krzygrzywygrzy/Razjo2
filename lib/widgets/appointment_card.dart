@@ -23,7 +23,7 @@ class AppointmentCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${_appointment.name} ${_appointment.surname}",
+              "${_appointment.name}",
               style: TextStyle(
                 color: kDark,
                 fontWeight: FontWeight.w700,

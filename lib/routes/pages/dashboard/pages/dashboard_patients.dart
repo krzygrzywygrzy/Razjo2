@@ -290,7 +290,10 @@ class _DashboardPatientsPageState extends State<DashboardPatientsPage> {
                                 : widget._user.id,
                             widget._user.role == "PSY"
                                 ? "${widget._user.name} ${widget._user.surname}"
-                                : "${list[index].surname}",
+                                : "${list[index].name} ${list[index].surname}",
+                            widget._user.role == "PSY"
+                                ? "${list[index].name} ${list[index].surname}"
+                                : "${widget._user.name} ${widget._user.surname}",
                           );
                           if (res.isRight()) {
                             _invitationService.deleteInvitation(

@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class Appointment extends Equatable {
-  Appointment({this.name, this.surname, this.id, this.date, this.time});
+  Appointment({this.name, this.psyName, this.id, this.date, this.time});
 
   final String id;
   final String name;
-  final String surname;
+  final String psyName;
   final DateTime date;
   final TimeOfDay time;
 
@@ -14,7 +14,7 @@ class Appointment extends Equatable {
     return Appointment(
       id: json['id'].toString(),
       name: json['name'],
-      surname: json['surname'],
+      psyName: json['surname'],
       date: DateTime(
         int.parse(json["year"]),
         int.parse(json["month"]),
@@ -31,7 +31,7 @@ class Appointment extends Equatable {
     return {
       'id': id,
       'name': name,
-      'surname': surname,
+      'psyName': psyName,
       'year': date.year.toString(),
       'month': date.month.toString(),
       'day': date.day.toString(),
@@ -41,5 +41,5 @@ class Appointment extends Equatable {
   }
 
   @override
-  List<Object> get props => [id, name, surname, date, time];
+  List<Object> get props => [id, name, psyName, date, time];
 }

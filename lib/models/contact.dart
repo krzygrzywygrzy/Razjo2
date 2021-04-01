@@ -13,6 +13,7 @@ class Contact extends Equatable {
     this.appointments,
     this.collection,
     this.psyName,
+    this.name,
   });
 
   final ObjectId id;
@@ -23,6 +24,7 @@ class Contact extends Equatable {
   final List<Appointment> appointments;
   final String collection;
   final String psyName;
+  final String name;
 
   factory Contact.fromJson(Map<String, dynamic> json) {
     List<Note> notesJson = [];
@@ -49,6 +51,7 @@ class Contact extends Equatable {
       appointments: appointmentsJson,
       collection: json["collection"],
       psyName: json["psyName"],
+      name: json["name"],
     );
   }
 
@@ -64,6 +67,7 @@ class Contact extends Equatable {
           appointments.length, (index) => appointments[index].toJson()),
       "collection": collection,
       "psyName": psyName,
+      "name": name,
     };
   }
 
@@ -77,5 +81,6 @@ class Contact extends Equatable {
         appointments,
         collection,
         psyName,
+        name,
       ];
 }

@@ -12,8 +12,8 @@ class ContactService {
   ///Manages to add, delete and read data from "contacts"
 
   Db db = Db(MONGO);
-  Future<Either<Failure, bool>> addContact(
-      ObjectId psychologist, ObjectId patient, String psyName) async {
+  Future<Either<Failure, bool>> addContact(ObjectId psychologist,
+      ObjectId patient, String psyName, String name) async {
     try {
       final String contactCollection = "contact-${Uuid().v4()}";
       Contact contact = Contact(

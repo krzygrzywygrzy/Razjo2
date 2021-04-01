@@ -59,7 +59,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       for (var contact in contacts) {
         list.add(
           ContactMinimum(
-              psyName: contact.psyName, collection: contact.collection),
+            psyName: contact.psyName,
+            collection: contact.collection,
+            name: contact.name,
+          ),
         );
       }
     }
