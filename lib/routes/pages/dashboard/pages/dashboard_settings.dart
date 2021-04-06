@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:razjo/core/functions/alertDialog.dart';
 import 'package:razjo/models/user.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/section_top_bar.dart';
 import 'package:razjo/routes/pages/dashboard/widgets/settings_input.dart';
+import 'package:razjo/services/settings_service.dart';
 
 import '../../../../core/const.dart';
 
@@ -68,7 +70,26 @@ class _DashboardSettingsPageState extends State<DashboardSettingsPage> {
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          //TODO: save information
+                          onTap: () async {
+                            SettingService service = SettingService();
+                            var res = await service.savePrimary(
+                              //TODO: refractor to take less code
+                              _nameController.text != ""
+                                  ? _nameController.text
+                                  : widget.user.name,
+                              _surnameController.text != ""
+                                  ? _surnameController.text
+                                  : widget.user.surname,
+                              _emailController.text != ""
+                                  ? _emailController.text
+                                  : widget.user.email,
+                              widget.user.id,
+                            );
+                            if (res.isLeft()) {
+                              showAlertDialog(
+                                  context, "Accured Error Updating Data!");
+                            }
+                          },
                           child: Text("Save"),
                         ),
                       ),

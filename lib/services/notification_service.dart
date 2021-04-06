@@ -35,6 +35,7 @@ class InvitationService {
       UserService _userService = UserService();
       response.forEach((element) async {
         var data = await _userService.getUser(element["from"]);
+        db.close();
         if (data.isRight()) {
           final User user = data.getOrElse(() => User());
           invitations.add(user);
@@ -44,10 +45,8 @@ class InvitationService {
       });
       return Right(invitations);
     } on SocketException {
-      db.close();
       return Left(ConnectionFailure());
     } on DbException {
-      db.close();
       return Left(
         DbFailure(),
       );
@@ -59,8 +58,7 @@ class InvitationService {
       await db.open();
       DbCollection coll = db.collection(collection);
       coll.remove(where.eq("from", id));
-    } on SocketException {
       db.close();
-    }
+    } on SocketException {}
   }
 }

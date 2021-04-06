@@ -60,9 +60,10 @@ class ContactService {
       List<String> collections) async {
     List<Contact> list = [];
     try {
-      await db.open();
       for (String coll in collections) {
+        await db.open();
         var res = await db.collection(coll).find().single;
+        db.close();
         if (res["err"] == null) {
           list.add(Contact.fromJson(res));
         } else
@@ -84,10 +85,9 @@ class ContactService {
         var res = await db
             .collection("users")
             .findOne(where.id(id).fields(["contacts"]));
-        print(res);
+        db.close();
       }
     } on DbException {
-      db.close();
       return Left(DbFailure());
     } on SocketException {
       return Left(ConnectionFailure());

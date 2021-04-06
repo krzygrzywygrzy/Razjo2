@@ -31,18 +31,16 @@ class AuthenticationService {
         "email": email,
         "password": password,
       });
+      db.close();
       if (data != null) {
         LoginData cacheData = LoginData(email: email, password: password);
         _localStorage.saveToLocal(cacheData.toJson());
-        db.close();
         return Right(User.fromJson(data));
       } else
         throw LogInException();
     } on LogInException {
-      db.close();
       return Left(LogInFailure());
     } catch (e) {
-      db.close();
       return Left(ConnectionFailure());
     }
   }
@@ -61,6 +59,7 @@ class AuthenticationService {
       user["avatar"] = "";
 
       var res = await collection.insert(user);
+      db.close();
       if (res["err"] == null) {
         db.close();
         return this.userLogin(user["email"], user["password"]);
@@ -68,13 +67,10 @@ class AuthenticationService {
         throw SignUpException();
       }
     } on EmailException {
-      db.close();
       return Left(EmailFailure());
     } on SignUpException {
-      db.close();
       return Left(SignUpFailure());
     } catch (e) {
-      db.close();
       return Left(ConnectionFailure());
     }
   }

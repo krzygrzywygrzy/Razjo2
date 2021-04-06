@@ -22,6 +22,7 @@ class UserService {
       DbCollection collection = db.collection("users");
       Map<String, dynamic> result = await collection
           .findOne(where.id(id).excludeFields(['password', 'contacts']));
+      db.close();
       if (result != null) {
         return Right(User.fromJson(result));
       } else
@@ -41,15 +42,14 @@ class UserService {
             where.id(user),
             modify.push(field, entry),
           );
+      db.close();
       if (response["err"] == null) {
         return Right(true);
       } else
         throw DbException();
     } on DbException {
-      db.close();
       return Left(DbFailure());
     } on SocketException {
-      db.close();
       return Left(ConnectionFailure());
     }
   }
@@ -70,10 +70,8 @@ class UserService {
       }
       return Right(list);
     } on DbException {
-      db.close();
       return Left(DbFailure());
     } on SocketException {
-      db.close();
       return Left(ConnectionFailure());
     }
   }

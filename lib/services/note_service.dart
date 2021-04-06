@@ -25,16 +25,14 @@ class NoteService {
             role == "PSY" ? "psyPrivate" : "notes",
             note.toJson(),
           ));
+      db.close();
       if (res["err"] == null) {
-        db.close();
         return Right(true);
       } else
         throw DbException();
     } on SocketException {
-      db.close();
       return Left(ConnectionFailure());
     } on DbException {
-      db.close();
       return Left(
         DbFailure(),
       );
