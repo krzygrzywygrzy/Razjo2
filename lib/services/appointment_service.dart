@@ -36,9 +36,7 @@ class AppointmentService {
       return Left(ConnectionFailure());
     } on DbException {
       db.close();
-      return Left(
-        DbFailure(message: "Cannot send invitation!"),
-      );
+      return Left(DbFailure());
     }
   }
 

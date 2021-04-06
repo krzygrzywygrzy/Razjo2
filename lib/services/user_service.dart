@@ -29,7 +29,7 @@ class UserService {
     } on SocketException {
       return Left(ConnectionFailure());
     } on DbException {
-      return Left(DbFailure(message: "No user found"));
+      return Left(DbFailure());
     }
   }
 
@@ -47,7 +47,7 @@ class UserService {
         throw DbException();
     } on DbException {
       db.close();
-      return Left(DbFailure(message: "cannot edit array"));
+      return Left(DbFailure());
     } on SocketException {
       db.close();
       return Left(ConnectionFailure());
@@ -71,7 +71,7 @@ class UserService {
       return Right(list);
     } on DbException {
       db.close();
-      return Left(DbFailure(message: "Cannot get users"));
+      return Left(DbFailure());
     } on SocketException {
       db.close();
       return Left(ConnectionFailure());

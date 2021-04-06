@@ -31,11 +31,8 @@ class SignUpFailure implements Failure {
 }
 
 class DbFailure implements Failure {
-  DbFailure({this.message});
-  final String message;
-
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [];
   @override
   bool get stringify => null;
 }

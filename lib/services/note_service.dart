@@ -36,7 +36,7 @@ class NoteService {
     } on DbException {
       db.close();
       return Left(
-        DbFailure(message: "Cannot send note!"),
+        DbFailure(),
       );
     }
   }

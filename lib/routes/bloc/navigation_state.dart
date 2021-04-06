@@ -15,13 +15,19 @@ class NavigationLoading extends NavigationState {
 }
 
 class NavigationLogIn extends NavigationState {
+  final Failure failure;
+  NavigationLogIn({this.failure});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [failure];
 }
 
 class NavigationSignUp extends NavigationState {
+  final Failure failure;
+  NavigationSignUp({this.failure});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [failure];
 }
 
 class NavigationDashboard extends NavigationState {

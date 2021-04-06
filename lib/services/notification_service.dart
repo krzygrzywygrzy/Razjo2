@@ -50,7 +50,7 @@ class InvitationService {
     } on DbException {
       db.close();
       return Left(
-        DbFailure(message: "error getting invitations"),
+        DbFailure(),
       );
     }
   }

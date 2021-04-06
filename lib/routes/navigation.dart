@@ -15,7 +15,9 @@ class Navigation extends StatelessWidget {
           context.read<NavigationBloc>().add(CheckAuthentication());
           return Container();
         } else if (state is NavigationLogIn) {
-          return LogInPage();
+          return LogInPage(
+            failure: state.failure,
+          );
         } else if (state is NavigationLoading) {
           return Center(
             child: Text("loading..."),
@@ -25,7 +27,9 @@ class Navigation extends StatelessWidget {
             user: state.user,
           );
         } else if (state is NavigationSignUp) {
-          return SignUpPage();
+          return SignUpPage(
+            failure: state.failure,
+          );
         }
       },
     );

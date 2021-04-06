@@ -49,7 +49,7 @@ class ContactService {
         throw DbException();
     } on DbException {
       db.close();
-      return Left(DbFailure(message: "cannot add to contacts"));
+      return Left(DbFailure());
     } on SocketException {
       db.close();
       return Left(ConnectionFailure());
@@ -70,7 +70,7 @@ class ContactService {
       }
       return Right(list);
     } on DbException {
-      return Left(DbFailure(message: "Cannot get contacts"));
+      return Left(DbFailure());
     } on SocketException {
       return Left(ConnectionFailure());
     }
@@ -88,7 +88,7 @@ class ContactService {
       }
     } on DbException {
       db.close();
-      return Left(DbFailure(message: "cannot remove contact"));
+      return Left(DbFailure());
     } on SocketException {
       return Left(ConnectionFailure());
     }

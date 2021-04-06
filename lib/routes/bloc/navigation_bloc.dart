@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:razjo/core/erros/failures.dart';
 
 import '../../models/user.dart';
 import '../../services/authentication_service.dart';
@@ -20,12 +21,12 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   ) async* {
     if (event is CheckAuthentication) {
       if (_user.id == null)
-        yield NavigationLogIn();
+        yield NavigationLogIn(failure: null);
       else
         yield NavigationDashboard(user: _user);
     }
     //log in screen
-    if (event is GoToLogInScreen) yield NavigationLogIn();
+    if (event is GoToLogInScreen) yield NavigationLogIn(failure: null);
 
     if (event is LogInEvent) {
       yield NavigationLoading();
@@ -35,12 +36,12 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         _user = response.getOrElse(() => _user);
         yield NavigationDashboard(user: _user);
       } else {
-        //TODO: implement error handling
+        yield NavigationLogIn(failure: (response as Left).value);
       }
     }
 
     //sign up page
-    if (event is GoToSignUpScreen) yield NavigationSignUp();
+    if (event is GoToSignUpScreen) yield NavigationSignUp(failure: null);
 
     if (event is SignUpEvent) {
       yield NavigationLoading();
@@ -50,7 +51,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         _user = response.getOrElse(() => _user);
         yield NavigationDashboard(user: _user);
       } else {
-        //TODO: implement error handling
+        yield NavigationSignUp(failure: (response as Left).value);
       }
     }
 

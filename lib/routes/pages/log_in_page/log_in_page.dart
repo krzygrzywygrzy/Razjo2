@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:razjo/core/erros/failures.dart';
+import 'package:razjo/core/functions/alertDialog.dart';
 
 import '../../../widgets/form_input.dart';
 import '../../bloc/navigation_bloc.dart';
 
 // ignore: must_be_immutable
-class LogInPage extends StatelessWidget {
-  String email, password;
+class LogInPage extends StatefulWidget {
+  final Failure failure;
+
+  const LogInPage({Key key, this.failure}) : super(key: key);
+
+  @override
+  _LogInPageState createState() => _LogInPageState();
+}
+
+class _LogInPageState extends State<LogInPage> {
+  String email, password, title = "Razjo";
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.failure != null) {
+      if (widget.failure is ConnectionFailure)
+        title = "Connection Error, try again!";
+      else if (widget.failure is LogInFailure) title = "Wrong Data, try again!";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +45,7 @@ class LogInPage extends StatelessWidget {
               : CrossAxisAlignment.center,
           children: [
             Text(
-              "Razjo",
+              title,
               style: TextStyle(fontSize: 30),
             ),
             FormInput(

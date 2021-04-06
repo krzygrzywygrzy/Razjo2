@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:razjo/core/erros/failures.dart';
+import 'package:razjo/core/functions/alertDialog.dart';
 
 import '../../../core/const.dart';
 import '../../../widgets/form_input.dart';
 import '../../bloc/navigation_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
+  final Failure failure;
+
+  const SignUpPage({Key key, this.failure}) : super(key: key);
+
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String name, surname, email, password;
+  String name, surname, email, password, title = "Sign Up";
   bool role = false;
 
   void selectRole() {
@@ -21,20 +27,29 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
+  void initState() {
+    super.initState();
+    if (widget.failure != null) {
+      if (widget.failure is ConnectionFailure)
+        title = "Connection Error, try again!";
+      else if (widget.failure is SignUpFailure)
+        title = "Wrong Data, try again!";
+    }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         SizedBox(
-          width: _width > 420 ? 100 : 0,
+          width: 100,
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Sign Up",
+              title,
               style: TextStyle(fontSize: 30),
             ),
             Row(
