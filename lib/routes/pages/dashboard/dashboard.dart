@@ -115,7 +115,9 @@ class _DashboardState extends State<Dashboard> {
                     contacts: state.contacts,
                   );
                 else if (state is DashboardSettings)
-                  return DashboardSettingsPage();
+                  return DashboardSettingsPage(
+                    user: widget.user,
+                  );
                 else {
                   return Center(
                     child: Text("loading..."),
